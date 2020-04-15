@@ -3,6 +3,7 @@
 import {covid_data, showData} from './fetch_api/covid-19_fetch_api.js'
 
 
+var countries = []
 var body = document.getElementsByTagName("body")[0]
 export var confirmed = document.getElementsByClassName("conformed")[0].getElementsByClassName("value")[0]
 export var recovered = document.getElementsByClassName("recovered")[0].getElementsByClassName("value")[0]
@@ -20,11 +21,6 @@ country.addEventListener('change', (e) => {
 
 
 showData()
-
-
-
-
-
 
 
 

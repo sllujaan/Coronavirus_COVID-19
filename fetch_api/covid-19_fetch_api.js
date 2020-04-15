@@ -111,7 +111,7 @@ var setAll = (data, country) => {
 
 export var showData = (country) => {
 
-    
+    setLoading()
     
     if(country) {
         console.log("country ====:: ", country)
@@ -153,6 +153,12 @@ export var showData = (country) => {
 
 
 
+
+export var setLoading = () => {
+    confirmed.innerHTML = `<i class="fas fa-circle-notch fa-spin fa-1x"></i>`
+    recovered.innerHTML = `<i class="fas fa-circle-notch fa-spin fa-1x"></i>`
+    deaths.innerHTML = `<i class="fas fa-circle-notch fa-spin fa-1x"></i>`
+}
 
 
 
