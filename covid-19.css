@@ -1,7 +1,25 @@
 
 
-h1{
+h1, h2{
     text-align: center;
+    color: red;
+    background-color: rgba(244, 0, 0, 0.18);
+    padding: 10px 0;
+
+    border-radius: 10px;
+
+    -webkit-box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
+    -moz-box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
+    box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h2 {
+    background-color: red;
+    color: black;
+    width: 50%;
 }
 
 

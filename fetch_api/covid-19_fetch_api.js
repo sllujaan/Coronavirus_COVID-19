@@ -1,6 +1,9 @@
 
 
-var url = 'https://covid19.mathdro.id/api555'
+import {showNetworkError} from '../covid-19.js'
+
+
+var url = 'https://covid19.mathdro.id/api'
 
 
 export var covid_data = async () => {
@@ -18,10 +21,24 @@ export var covid_data = async () => {
 
 covid_data()
 .then(data => {
-    console.log(data)
+    console.log(data.confirmed)
 })
 .catch(err => {
     console.error(err)
+    showNetworkError()
 })
 
+
+
+
+
+var getConfirmed = (data, country) => {
+    return data.confirmed.value
+}
+
+
+
+var setConfirmed = () => {
+    
+}
 
