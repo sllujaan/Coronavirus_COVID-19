@@ -5,6 +5,17 @@ h1{
 }
 
 
+
+
+.cases {
+    
+}
+
+
+
+
+
+
 .statistics{
     background-color: white;
     width: 100%;
@@ -22,7 +33,7 @@ h1{
 }
 
 
-.statistics .title {
+.title {
     background-color: orange;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -32,7 +43,7 @@ h1{
 
 }
 
-.statistics .body {
+.body {
     background-color: orange;
 
     padding: 10px;
@@ -41,7 +52,7 @@ h1{
 
 }
 
-.statistics .bottom-discription {
+.bottom-discription {
     background-color: orange;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -50,3 +61,6 @@ h1{
     width: 100%;
 
 }
+
+
+
