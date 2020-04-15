@@ -1,6 +1,6 @@
 
 
-import {covid_data} from './fetch_api/covid-19_fetch_api.js'
+import {covid_data, showData} from './fetch_api/covid-19_fetch_api.js'
 
 
 var body = document.getElementsByTagName("body")[0]
@@ -14,22 +14,12 @@ console.log(country.value)
 
 country.addEventListener('change', (e) => {
     console.log(e.target.value)
+    showData(e.target.value)
     
 })
 
 
-
-var showData = (country) => {
-    
-}
-
-
-
-
-
-
-
-
+showData()
 
 
 

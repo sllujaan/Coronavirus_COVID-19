@@ -21,16 +21,6 @@ export var covid_data = async (country, typeOfData) => {
 
 
 
-covid_data()
-.then(data => {
-    console.log(data)
-    setAll(data)
-    console.log(getConfirmed(data, 'France'))
-})
-.catch(err => {
-    console.error(err)
-    showNetworkError()
-})
 
 
 
@@ -52,9 +42,32 @@ var getConfirmed = (data, country) => {
 }
 
 var getRecovered = (data, country) => {
+
+    if(country) {
+        var countryRegion = data.find(index => {
+            return index.countryRegion === country
+        })
+
+        if(countryRegion) return countryRegion.recovered
+        
+        return
+    }
+
     return data.recovered.value
 }
+
 var getDeaths = (data, country) => {
+
+    if(country) {
+        var countryRegion = data.find(index => {
+            return index.countryRegion === country
+        })
+
+        if(countryRegion) return countryRegion.deaths
+        
+        return
+    }
+
     return data.deaths.value
 }
 //--------------------------------------------------
@@ -72,8 +85,70 @@ var setDeaths = (value) => {
 }
 //--------------------------------------------------
 
-var setAll = (data) => {
-    setConfirmed(getConfirmed(data))
-    setRecovered(getRecovered(data))
-    setDeaths(getDeaths(data))
+var setAll = (data, country) => {
+    if(country) {
+        setConfirmed(getConfirmed(data, country))
+        setRecovered(getRecovered(data, country))
+        setDeaths(getDeaths(data, country))
+    }
+    else{
+        setConfirmed(getConfirmed(data))
+        setRecovered(getRecovered(data))
+        setDeaths(getDeaths(data))
+    }
+    
 }
+
+
+
+export var showData = (country) => {
+
+    
+    
+    if(country) {
+        console.log("show called with coutry")
+    }
+    else{
+        
+        
+        covid_data()
+        .then(data => {
+            console.log(data)
+            setAll(data)
+            //console.log(getConfirmed(data, 'France'))
+        })
+        .catch(err => {
+            console.error(err)
+            showNetworkError()
+        })
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+covid_data()
+.then(data => {
+    console.log(data)
+    setAll(data)
+    //console.log(getConfirmed(data, 'France'))
+})
+.catch(err => {
+    console.error(err)
+    showNetworkError()
+})
+
+*/
