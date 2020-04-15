@@ -3,10 +3,18 @@
 import {showNetworkError, confirmed, recovered, deaths} from '../covid-19.js'
 
 
-var url = 'https://covid19.mathdro.id/api'
+var covid_19_url = 'https://covid19.mathdro.id/api'
 
 
-export var covid_data = async (country, typeOfData) => {
+export var covid_data = async (country) => {
+
+    var url
+
+    if(!country) url = covid_19_url
+    if(country) url = covid_19_url+"/confirmed"
+
+
+    console.log("feching url...:: ", url)
 
     var res = await fetch(url)
 
@@ -106,7 +114,17 @@ export var showData = (country) => {
     
     
     if(country) {
-        console.log("show called with coutry")
+        console.log("country ====:: ", country)
+        covid_data(country)
+        .then(data => {
+            console.log(data)
+            setAll(data, country)
+            //console.log(getConfirmed(data, 'France'))
+        })
+        .catch(err => {
+            console.error(err)
+            showNetworkError()
+        })
     }
     else{
         
