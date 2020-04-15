@@ -1,31 +1,13 @@
 
 
-var url = 'https://covid19.mathdro.id/api555'
+import {} from './fetch_api/covid-19_fetch_api.js'
 
 
 
+var country = document.getElementById("countries-covid-19")
+console.log(country.value)
 
-
-
-
-var covid_data = async () => {
-    
-    var res = await fetch(url)
-
-    if(!res.ok) throw Error(res.status + " " + res.statusText)
-
-    var data = await res.json()
-
-    return data;
-}
-
-
-
-
-covid_data()
-.then(data => {
-    console.log(data)
+country.addEventListener('change', (e) => {
+    console.log(e.target.value)
 })
-.catch(err => {
-    console.error(err)
-})
+
