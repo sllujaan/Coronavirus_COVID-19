@@ -1,6 +1,6 @@
 
 
-import {showNetworkError, confirmed, recovered, deaths} from '../covid-19.js'
+import {showNetworkError, confirmed, recovered, deaths, removeNetworkError} from '../covid-19.js'
 
 
 var covid_19_url = 'https://covid19.mathdro.id/api'
@@ -110,7 +110,8 @@ var setAll = (data, country) => {
 
 
 export var showData = (country) => {
-
+    
+    removeNetworkError()
     setLoading()
     
     if(country) {

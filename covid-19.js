@@ -28,20 +28,18 @@ showData()
 
 
 
-
-
+export function removeNetworkError() {
+    var network_error = document.getElementById("n-err")
+    console.log(network_error)
+    if(network_error) network_error.remove()
+}
 
 
 
 export var showNetworkError = () => {
-    console.log(body.children[1].tagName)
-    if(body.children[1].tagName === 'h2') {
-        console.log("yes first child is h2")
-    }
-    else{
-        console.log("no first child is not h2 element")
-    }
+
     var network_error = document.createElement('h2')
+    network_error.setAttribute("id", "n-err")
     network_error.innerHTML = `Check your connection.`
     body.insertBefore(network_error, body.children[1])
 }
@@ -90,4 +88,5 @@ var makeSelectOption = (arr) => {
 
     }
 }
+
 */

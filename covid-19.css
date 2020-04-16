@@ -1,4 +1,8 @@
 
+a{
+    color:gray;
+}
+
 
 h1, h2{
     text-align: center;
@@ -44,10 +48,6 @@ select {
     padding: 5px 10px;
     border-radius: 20px;
     outline: none;
-
-    -webkit-box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
-    -moz-box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
-    box-shadow: rgba(32, 33, 36, 0.28) 0px 1px 6px 0px;
 }
 
 
