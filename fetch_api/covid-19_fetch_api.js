@@ -124,6 +124,7 @@ export var showData = (country) => {
         .catch(err => {
             console.error(err)
             showNetworkError()
+            cancelLoading()
         })
     }
     else{
@@ -138,6 +139,7 @@ export var showData = (country) => {
         .catch(err => {
             console.error(err)
             showNetworkError()
+            cancelLoading()
         })
 
     }
@@ -160,6 +162,13 @@ export var setLoading = () => {
     deaths.innerHTML = `<i class="fas fa-circle-notch fa-spin fa-1x"></i>`
 }
 
+
+
+function cancelLoading () {
+    confirmed.innerHTML = `---`
+    recovered.innerHTML = `---`
+    deaths.innerHTML = `---`
+}
 
 
 /*
