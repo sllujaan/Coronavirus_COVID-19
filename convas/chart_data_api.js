@@ -5,7 +5,9 @@ export var covid_19_data = [
     {"day":2, infected_people: 500},
     {"day":3, infected_people: 1000},
     {"day":4, infected_people: 2000},
-    {"day":5, infected_people: 4000}
+    {"day":5, infected_people: 4000},
+    {"day":6, infected_people: 8000},
+    {"day":7, infected_people: 10000}
 ]
 
 console.log(covid_19_data)

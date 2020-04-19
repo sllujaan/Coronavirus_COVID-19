@@ -89,6 +89,7 @@ export class Chart  {
         this.drawInnerRect()
         this.drawLabels()
         this.drawDataY()
+        this.drawDataX()
 
 
         //this.ctx.stroke()
@@ -234,6 +235,82 @@ export class Chart  {
         }
     }
 
+
+
+
+    //drawing x values------------------------
+    drawDataX() {
+        var calculatedarr = this.getCalculatedDataX()
+        console.log(calculatedarr)
+        this.setDataXCoordinates(calculatedarr.length)
+
+
+
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
+
+        //For Wall 1--------------------------------------
+        this.ctx.fillText(calculatedarr[0], (this.x_wall_1_width), this.y_corrdinate_0)
+        this.x_wall_1_val = calculatedarr[0]
+        //-------------------------------
+
+        //For Wall 2--------------------------------------
+        this.ctx.fillText(calculatedarr[1], (this.x_wall_2_width), this.y_corrdinate_0)
+        this.x_wall_2_val = calculatedarr[1]
+        //-------------------------------
+
+        //For Wall 2--------------------------------------
+        this.ctx.fillText(calculatedarr[2], (this.x_wall_3_width), this.y_corrdinate_0)
+        this.x_wall_3_val = calculatedarr[2]
+        //-------------------------------
+
+        //For Wall 2--------------------------------------
+        this.ctx.fillText(calculatedarr[3], (this.x_wall_4_width), this.y_corrdinate_0)
+        this.x_wall_4_val = calculatedarr[3]
+        //-------------------------------
+
+
+    }
+    getCalculatedDataX() {
+
+        if(this.data_y.length <= 4) return this.data_y
+
+        if(this.data_y.length > 4) {
+            console.log("more")
+            var index_diff = this.data_y.length / 4
+            console.log(index_diff)
+            
+            if(index_diff < 1.75) {
+                return [this.data_y[0], this.data_y[1], this.data_y[this.data_y.length-2], this.data_y[this.data_y.length-1]]
+            }
+
+            if(index_diff < 2) {
+                return [this.data_y[0], this.data_y[2], this.data_y[this.data_y.length-3], this.data_y[this.data_y.length-1]]
+            }
+
+            return [this.data_y[0], this.data_y[index_diff], this.data_y[(this.data_y.length-1) - (index_diff)], this.data_y[this.data_y.length-1]]
+
+        }
+    }
+
+    setDataXCoordinates(num) {
+        console.log(num)
+
+        console.log(this.canvas.width)
+        console.log(this.x_corrdinate_0)
+
+        var walls_diff = (this.canvas.width - this.x_corrdinate_0) / 4
+        console.log(walls_diff)
+        if(num === 4) {
+            this.x_wall_1_width = this.x_corrdinate_0 + walls_diff
+            console.log(this.x_wall_1_width)
+            this.x_wall_2_width = this.x_corrdinate_0 + (walls_diff * 2)
+            this.x_wall_3_width = this.x_corrdinate_0 + (walls_diff * 3)
+            this.x_wall_4_width = this.x_corrdinate_0 + (walls_diff * 4)
+        }
+    }
+    //------------------------------------------
     
 
 }
