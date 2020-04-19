@@ -99,6 +99,8 @@ select {
 .title {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    color: black;
+    font-size: large;
 }
 
 .bottom-discription {
