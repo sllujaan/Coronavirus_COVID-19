@@ -251,25 +251,26 @@ export class Chart  {
         this.ctx.textBaseline="middle"
 
         //For Wall 1--------------------------------------
-        this.ctx.fillText(calculatedarr[0], (this.x_wall_1_width), this.y_corrdinate_0)
+        this.ctx.fillText(calculatedarr[0], (this.x_wall_1_width), this.y_corrdinate_0 + 10)
         this.x_wall_1_val = calculatedarr[0]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[1], (this.x_wall_2_width), this.y_corrdinate_0)
+        this.ctx.fillText(calculatedarr[1], (this.x_wall_2_width), this.y_corrdinate_0 + 10)
         this.x_wall_2_val = calculatedarr[1]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[2], (this.x_wall_3_width), this.y_corrdinate_0)
+        this.ctx.fillText(calculatedarr[2], (this.x_wall_3_width), this.y_corrdinate_0 + 10)
         this.x_wall_3_val = calculatedarr[2]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[3], (this.x_wall_4_width), this.y_corrdinate_0)
+        this.ctx.fillText(calculatedarr[3], (this.x_wall_4_width), this.y_corrdinate_0 + 10)
         this.x_wall_4_val = calculatedarr[3]
         //-------------------------------
 
+        this.ctx.restore()
 
     }
     getCalculatedDataX() {
@@ -303,11 +304,11 @@ export class Chart  {
         var walls_diff = (this.canvas.width - this.x_corrdinate_0) / 4
         console.log(walls_diff)
         if(num === 4) {
-            this.x_wall_1_width = this.x_corrdinate_0 + walls_diff
+            this.x_wall_1_width = this.x_corrdinate_0 + walls_diff - 20
             console.log(this.x_wall_1_width)
-            this.x_wall_2_width = this.x_corrdinate_0 + (walls_diff * 2)
-            this.x_wall_3_width = this.x_corrdinate_0 + (walls_diff * 3)
-            this.x_wall_4_width = this.x_corrdinate_0 + (walls_diff * 4)
+            this.x_wall_2_width = this.x_corrdinate_0 + (walls_diff * 2) - 20
+            this.x_wall_3_width = this.x_corrdinate_0 + (walls_diff * 3) - 20
+            this.x_wall_4_width = this.x_corrdinate_0 + (walls_diff * 4) - 20
         }
     }
     //------------------------------------------
