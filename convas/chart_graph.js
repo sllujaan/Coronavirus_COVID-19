@@ -115,7 +115,7 @@ export class Chart  {
     }
 
     drawInnerRect() {
-        var y_percentage = (this.innerRectOffset_percentage * this.canvas.height) //.1 is 10 percent of height
+        var y_percentage = ( 50) //.1 is 10 percent of height
 
         this.ctx.beginPath()
         this.ctx.rect(y_percentage, - y_percentage, this.canvas.width, this.canvas.height)
@@ -128,12 +128,28 @@ export class Chart  {
     }
     
     drawLabels() {
-
+        
+        
         this.ctx.beginPath()
         
-        this.ctx.fillText(this.label_y, 0, this.canvas.height / 2)
+        //
         
-        this.ctx.fillText(this.label_x, this.canvas.width / 2, this.canvas.height)
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
+        this.ctx.translate(10, this.canvas.height / 2)
+        this.ctx.rotate(Math.PI*1.5)
+        this.ctx.fillText(this.label_y ,0, 0)
+        
+        this.ctx.restore()
+        //this.ctx.fillText(this.label_y, 0, this.canvas.height / 2)
+        
+        
+        //this.ctx.moveTo(0, this.canvas.height / 2)
+
+        //this.ctx.translate(0, this.canvas.height / 2)
+        
+        this.ctx.fillText(this.label_x, this.canvas.width / 2, this.canvas.height - 10)
 
         this.ctx.stroke()
     }

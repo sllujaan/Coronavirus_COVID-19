@@ -16,13 +16,5 @@ console.log(!true)
 
 
 
-var isValid = covid_19_data.forEach(data => {
-    console.log("forEach")
-    //if(data.infected_people === 1000) return true
-    if(data.infected_people === 1000) console.log("yes 1000 found")
-    return true
-})
 
-setTimeout(() => {
-    console.log(isValid)
-}, 2000);
+

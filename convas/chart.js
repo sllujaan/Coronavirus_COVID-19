@@ -41,8 +41,33 @@ catch (err) {
 
 var innerBorder = 40
 ctx.beginPath()
-ctx.rect(innerBorder, innerBorder , chart_width - (innerBorder * 2), chart_height - (innerBorder * 2))
 
+
+ctx.save()
+
+//ctx.translate(10, 10)
+//ctx.translate(100, 20)
+//ctx.rotate(1.5)
+
+ctx.textAlign="center";
+ctx.textBaseline="middle";
+//ctx.translate(150,150);
+//ctx.translate(10, chart_height / 2)
+//ctx.rotate(Math.PI/2);
+ctx.translate(10, chart_height / 2)
+ctx.rotate(Math.PI*1.5)
+ctx.fillText("Hello World!",0, 0);
+
+ctx.restore()
+
+//ctx.fillText("label", (chart_width / 2), chart_height / 2)
+//ctx.rect(innerBorder, innerBorder , chart_width - (innerBorder * 2), chart_height - (innerBorder * 2))
+
+
+
+ctx.stroke()
+
+/*
 ctx.moveTo(0, chart_height)
 ctx.lineTo(chart_width, 0)
 ctx.stroke()
@@ -125,7 +150,7 @@ ctx.moveTo(0, 20)
 ctx.lineTo(20, 20)
 ctx.stroke()
 */
-
+/*
 ctx.beginPath()
 /*
 ctx.moveTo(0, 180)
