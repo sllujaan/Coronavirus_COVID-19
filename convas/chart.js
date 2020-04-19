@@ -30,7 +30,7 @@ try {
 var data_x = [100, 200, 300]
 var data_y = [1000, 4000, 10000, 12000]
 
-var myChart = new Chart(ctx_new, "label_x", data_x, "label_y", [1000, 2000, 3000, 4000], [{day:1, eff:132, no:1}])
+var myChart = new Chart(ctx_new, "", data_x, "", [1000, 2000, 3000, 4000], covid_19_data)
 
 
 }

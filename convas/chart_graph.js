@@ -51,18 +51,35 @@ export class Chart  {
 
         if(dataSet_x_y && (typeof dataSet_x_y !== 'object' && !Array.isArray(dataSet_x_y) )) throw Error("dataSet must be a object of type json or array of json object.")
 
-        if(!this.isValidJson(dataSet_x_y)) throw Error("Each json object requries two values for the chart to be drawn.")
+        //if(!this.isValidJson(dataSet_x_y)) throw Error("Each json object requries two values for the chart to be drawn.")
 
         //if(!this.isValidJsonArray(dataSet_x_y)) throw Error("In array Each json object requries two values for the chart to be drawn.")
 
         //if(Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) throw Error("two values are required in a json Object")
 
+        console.log(dataSet_x_y)
+
+        
+
+        var x_name = Object.keys(dataSet_x_y[0])[0]
+        var y_name = Object.keys(dataSet_x_y[0])[1]
+        var x_arr = []
+        var y_arr = []
+    
+        dataSet_x_y.forEach(data => {
+            x_arr.push(data[x_name])
+            y_arr.push(data[y_name])
+        })
+
 
         this.ctx = ctx
-        this.label_x = label_x
-        this.label_y = label_y
-        this.data_x = data_x
-        this.data_y = data_y
+        this.label_x = (label_x) ? (label_x) : (x_name)
+        this.label_y = (label_y) ? (label_y) : (y_name)
+        //this.data_x = data_x
+        //this.data_y = data_y
+
+        this.data_x = x_arr
+        this.data_y = y_arr
         this.canvas = ctx.canvas
         
 
@@ -110,7 +127,8 @@ export class Chart  {
     setWidthHeight() {
         console.log("setwidthHeight Method")
         console.log(this.canvas)
-        this.canvas.width = window.innerWidth - 20
+
+        this.canvas.width = ((window.innerWidth) > 300) ?  (window.innerWidth - 20) : (300) 
         this.canvas.height = (this.canvas.width / 2) 
     }
 
