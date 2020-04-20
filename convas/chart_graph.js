@@ -33,6 +33,9 @@ export class Chart  {
     x_wall_4_width
     x_wall_4_val
 
+    current_wall_width
+    current_wall_val
+
 
 
     
@@ -342,14 +345,70 @@ export class Chart  {
             this.ctx.stroke()
         }
 
+
+        //var current_wall_val = this.x_wall_2_val
+
+        this.setCurrentWallToNext()
+        console.log(this.current_wall_val)
+
         this.data_x.forEach((x_val, index) => {
             console.log(x_val, index)
+
+            if(x_val <= this.current_wall_val) {
+                var computed_width = getComputedWidth()
+                var computed_height = getComputedHeight()
+            }
+
+
+
+
+            if(x_val > this.current_wall_val) {
+                this.setCurrentWallToNext()
+            }
+        
 
             
         })
 
     }
     //---------------------------------------------------
+
+
+    //getting Next Wall---------------------
+    setCurrentWallToNext() {
+        if(this.current_wall_width === this.x_wall_1_width) {
+            this.current_wall_width = this.x_wall_2_width
+            this.current_wall_val = this.x_wall_2_val
+        }
+
+        if(this.current_wall_width === this.x_wall_2_width) {
+            this.current_wall_width = this.x_wall_3_width
+            this.current_wall_val = this.x_wall_3_val
+        }
+
+        if(this.current_wall_width === this.x_wall_3_width) {
+            this.current_wall_width = this.x_wall_4_width
+            this.current_wall_val = this.x_wall_4_val
+        }
+
+        if(!this.current_wall_width) {
+            this.current_wall_width = this.x_wall_1_width
+            this.current_wall_val = this.x_wall_1_val
+        }
+
+    }
+    //-------------------------------------
+
+
+    //calculating height and widht for x hidden values----------------------
+    getComputedWidth () {
+
+    }
+
+    getComputedHeight () {
+        
+    }
+    //----------------------------------------------------------------
     
 
 }
