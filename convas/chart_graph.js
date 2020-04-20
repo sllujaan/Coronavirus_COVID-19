@@ -23,6 +23,9 @@ export class Chart  {
     y_roof_3_height
     y_roof_3_val
 
+    current_roof_height
+    current_roof_val
+
 
     x_wall_1_width
     x_wall_1_val
@@ -338,25 +341,30 @@ export class Chart  {
 
         this.ctx.beginPath()
 
-        if(this.data_x[0] === this.x_wall_1_val && this.data_y[0] === this.y_roof_1_val) {
+        /*if(this.data_x[0] === this.x_wall_1_val && this.data_y[0] === this.y_roof_1_val) {
             console.log("dara")
             this.ctx.moveTo(this.x_corrdinate_0, this.y_corrdinate_0)
             this.ctx.lineTo(this.x_wall_1_width  , this.y_roof_1_height )
             this.ctx.stroke()
-        }
+        }*/
+
+        console.log("drawing.....................///")
 
 
         //var current_wall_val = this.x_wall_2_val
 
         this.setCurrentWallToNext()
+        this.setCurrentRoofToNext()
         console.log(this.current_wall_val)
 
         this.data_x.forEach((x_val, index) => {
             console.log(x_val, index)
 
             if(x_val <= this.current_wall_val) {
-                var computed_width = getComputedWidth()
-                var computed_height = getComputedHeight()
+                var computed_width = this.getComputedWidth(x_val)
+                //var computed_height = this.getComputedHeight(y_val)
+
+
             }
 
 
@@ -373,8 +381,23 @@ export class Chart  {
     }
     //---------------------------------------------------
 
+    //calculating height and widht for x hidden values----------------------
+    getComputedWidth (x_val) {
+        console.log(this.x_corrdinate_0, this.current_wall_width)
+        var origin_x_width = this.current_wall_width - this.x_corrdinate_0
+        console.log(origin_x_width)
+        console.log( (x_val / this.current_wall_val) )
+    }
 
-    //getting Next Wall---------------------
+    getComputedHeight (y_val) {
+
+    }
+    //----------------------------------------------------------------
+
+
+
+
+    //setting  Next Wall---------------------
     setCurrentWallToNext() {
         if(this.current_wall_width === this.x_wall_1_width) {
             this.current_wall_width = this.x_wall_2_width
@@ -399,16 +422,45 @@ export class Chart  {
     }
     //-------------------------------------
 
+    //setting Next roof or prev-------------------------------------
+    setCurrentRoofToNext() {
+        if(this.current_roof_height === this.y_roof_1_height) {
+            this.current_roof_height = this.y_roof_2_height
+            this.current_roof_val = this.y_roof_2_val
+        }
 
-    //calculating height and widht for x hidden values----------------------
-    getComputedWidth () {
+        if(this.current_roof_height === this.y_roof_2_height) {
+            this.current_roof_height = this.y_roof_3_height
+            this.current_roof_val = this.y_roof_3_val
+        }
 
+        if(!this.current_roof_height) {
+            this.current_roof_height = this.y_roof_1_height
+            this.current_roof_val = this.y_roof_1_val
+        }
     }
 
-    getComputedHeight () {
-        
+    setCurrentRoofToPrev() {
+        if(this.current_roof_height === this.y_roof_3_height) {
+            this.current_roof_height = this.y_roof_2_height
+            this.current_roof_val = this.y_roof_2_val
+        }
+
+        if(this.current_roof_height === this.y_roof_2_height) {
+            this.current_roof_height = this.y_roof_1_height
+            this.current_roof_val = this.y_roof_1_val
+        }
+
+        if(!this.current_roof_height) {
+            this.current_roof_height = this.y_roof_3_height
+            this.current_roof_val = this.y_roof_3_val
+        }
     }
-    //----------------------------------------------------------------
+
+    //-----------------------------------------
+
+
+    
     
 
 }
