@@ -56,7 +56,7 @@ ctx.textBaseline="middle";
 //ctx.rotate(Math.PI/2);
 ctx.translate(10, chart_height / 2)
 ctx.rotate(Math.PI*1.5)
-ctx.fillText("Hello World!",0, 0);
+ctx.fillText("Hello World!",0, 0)
 
 ctx.restore()
 

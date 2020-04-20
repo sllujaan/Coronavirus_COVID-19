@@ -78,6 +78,7 @@ export class Chart  {
         //this.data_x = data_x
         //this.data_y = data_y
 
+        //console.log(x_arr)
         this.data_x = x_arr
         this.data_y = y_arr
         this.canvas = ctx.canvas
@@ -90,7 +91,7 @@ export class Chart  {
         this.drawLabels()
         this.drawDataY()
         this.drawDataX()
-
+        this.drawLine()
 
         //this.ctx.stroke()
 
@@ -140,6 +141,9 @@ export class Chart  {
         this.ctx.rect(y_percentage, - y_percentage, this.canvas.width, this.canvas.height)
 
         this.ctx.fillText(0, y_percentage-5, (this.canvas.height - y_percentage + 10))
+        
+        
+        
         this.ctx.stroke()
 
         this.x_corrdinate_0 = y_percentage
@@ -156,6 +160,7 @@ export class Chart  {
         this.ctx.save()
         this.ctx.textAlign="center"
         this.ctx.textBaseline="middle"
+        this.ctx.font = 'bold 14px Arial'
         this.ctx.translate(10, this.canvas.height / 2)
         this.ctx.rotate(Math.PI*1.5)
         this.ctx.fillText(this.label_y ,0, 0)
@@ -168,7 +173,10 @@ export class Chart  {
 
         //this.ctx.translate(0, this.canvas.height / 2)
         
+        this.ctx.save()
+        this.ctx.font = 'bold 14px Arial'
         this.ctx.fillText(this.label_x, this.canvas.width / 2, this.canvas.height - 10)
+        this.ctx.restore()
 
         this.ctx.stroke()
     }
@@ -178,23 +186,29 @@ export class Chart  {
         console.log(calculatedarr)
         this.setDataYCoordinates(calculatedarr.length)
 
+        this.ctx.save()
+        this.ctx.textAlign="right"
+        this.ctx.textBaseline="middle"
+
         if(this.y_roof_1_height) {
-            this.ctx.fillText(calculatedarr[0], (.5 * this.x_corrdinate_0), this.y_roof_1_height)
+            this.ctx.fillText(calculatedarr[0], (this.x_corrdinate_0 - 4), this.y_roof_1_height)
             this.y_roof_1_val = calculatedarr[0]
         }
 
         if(this.y_roof_2_height) {
             console.log("roof 2///////")
-            this.ctx.fillText(calculatedarr[1], (.5 * this.x_corrdinate_0), this.y_roof_2_height)
+            this.ctx.fillText(calculatedarr[1], (this.x_corrdinate_0 - 4), this.y_roof_2_height)
             this.y_roof_2_val = calculatedarr[1]
         }
 
         if(this.y_roof_3_height) {
             console.log("roof 3/////////")
-            this.ctx.fillText(calculatedarr[2], (.5 * this.x_corrdinate_0), this.y_roof_3_height)
+            this.ctx.fillText(calculatedarr[2], (this.x_corrdinate_0 - 4), this.y_roof_3_height)
             this.y_roof_3_val = calculatedarr[2]
         }
 
+
+        this.ctx.restore()
     }
 
     getCalculatedDataY() {
@@ -283,14 +297,14 @@ export class Chart  {
             console.log(index_diff)
             
             if(index_diff < 1.75) {
-                return [this.data_y[0], this.data_y[1], this.data_y[this.data_y.length-2], this.data_y[this.data_y.length-1]]
+                return [this.data_x[0], this.data_x[1], this.data_x[this.data_x.length-2], this.data_x[this.data_x.length-1]]
             }
 
             if(index_diff < 2) {
-                return [this.data_y[0], this.data_y[2], this.data_y[this.data_y.length-3], this.data_y[this.data_y.length-1]]
+                return [this.data_x[0], this.data_x[2], this.data_x[this.data_x.length-3], this.data_x[this.data_x.length-1]]
             }
 
-            return [this.data_y[0], this.data_y[index_diff], this.data_y[(this.data_y.length-1) - (index_diff)], this.data_y[this.data_y.length-1]]
+            return [this.data_x[0], this.data_x[index_diff], this.data_x[(this.data_x.length-1) - (index_diff)], this.data_x[this.data_x.length-1]]
 
         }
     }
@@ -312,6 +326,23 @@ export class Chart  {
         }
     }
     //------------------------------------------
+
+
+    //Drawing chart line-----------------------------------------
+    drawLine() {
+        console.log(this.data_x)
+        console.log(this.data_y)
+
+        this.ctx.beginPath()
+
+        if(this.data_x[0] === this.x_wall_1_val && this.data_y[0] === this.y_roof_1_val) {
+            console.log("dara")
+            this.ctx.moveTo(this.x_corrdinate_0, this.y_corrdinate_0)
+            this.ctx.lineTo(this.x_wall_1_width  , this.y_roof_1_height )
+            this.ctx.stroke()
+        }
+    }
+    //---------------------------------------------------
     
 
 }
