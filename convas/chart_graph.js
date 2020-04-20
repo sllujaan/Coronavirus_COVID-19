@@ -341,6 +341,13 @@ export class Chart  {
             this.ctx.lineTo(this.x_wall_1_width  , this.y_roof_1_height )
             this.ctx.stroke()
         }
+
+        this.data_x.forEach((x_val, index) => {
+            console.log(x_val, index)
+
+            
+        })
+
     }
     //---------------------------------------------------
     
