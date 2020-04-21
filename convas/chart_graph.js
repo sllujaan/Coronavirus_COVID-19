@@ -143,8 +143,12 @@ export class Chart  {
     drawInnerRect() {
         var y_percentage = (50) //.1 is 10 percent of height
 
+        console.log(this.canvas.width)
+        console.log(this.canvas.height)
+
         this.ctx.beginPath()
         this.ctx.rect(y_percentage, - y_percentage, this.canvas.width, this.canvas.height)
+
 
         this.ctx.fillText(0, y_percentage-5, (this.canvas.height - y_percentage + 10))
         
