@@ -359,8 +359,25 @@ export class Chart  {
         this.setCurrentRoofToNext()
 
 
-        this.setCurrentWallToNext()
-        console.log(this.current_wall_val)
+        //this.setCurrentWallToNext()
+        //console.log(this.current_wall_val)
+
+        var x_val = this.data_x[0]
+        var y_val = this.data_y[0]
+
+        console.log(x_val)
+
+        var computed_width = this.getComputedWidth(x_val)
+        var computed_height = this.getComputedHeight(y_val)
+        
+        console.log(computed_width, computed_height)
+          
+        this.ctx.fillText("O", computed_width, computed_height)
+
+
+
+
+
 
         var x_val = this.data_x[1]
         var y_val = this.data_y[1]
@@ -368,9 +385,16 @@ export class Chart  {
         console.log(x_val)
 
         var computed_width = this.getComputedWidth(x_val)
+        var computed_height = this.getComputedHeight(y_val)
         
+        console.log(computed_width, computed_height)
+          
+        this.ctx.fillText("o", computed_width, computed_height)
+
+
+
         
-        console.log(computed_width)
+        /*
         
         this.ctx.save()
         this.ctx.textAlign="center"
@@ -381,7 +405,7 @@ export class Chart  {
 
 
 
-        var computed_height = this.getComputedHeight(y_val)
+        
         console.log(computed_height)
 
 
@@ -395,7 +419,7 @@ export class Chart  {
         this.ctx.restore()
         this.ctx.stroke()
 
-
+        */
 
 
 
@@ -425,6 +449,8 @@ export class Chart  {
 
     //calculating height and width for x hidden values----------------------
     getComputedWidth (x_val) {
+
+        if(x_val === this.current_wall_val) return this.current_wall_width
         
         var walls_diff = this.current_wall_width - this.getPrevWallWidth()
         //console.log(walls_diff)
@@ -450,14 +476,7 @@ export class Chart  {
         console.log(y_val)
         console.log(this.current_roof_height)
 
-        if( y_val < this.current_roof_val) {
-            console.log("value is less")
-
-        }
-
-        if( y_val > this.current_roof_val) {
-            console.log("value is greater")
-        }
+        if(y_val === this.current_roof_val) return this.current_roof_height
 
 
         var maxIntervals = 5
