@@ -141,7 +141,7 @@ export class Chart  {
     }
 
     drawInnerRect() {
-        var y_percentage = ( 50) //.1 is 10 percent of height
+        var y_percentage = (50) //.1 is 10 percent of height
 
         this.ctx.beginPath()
         this.ctx.rect(y_percentage, - y_percentage, this.canvas.width, this.canvas.height)
