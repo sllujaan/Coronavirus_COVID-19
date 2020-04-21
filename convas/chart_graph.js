@@ -390,6 +390,7 @@ export class Chart  {
 
 
 
+
         /*this.data_x.forEach((x_val, index) => {
             console.log(x_val, index)
 
@@ -439,6 +440,68 @@ export class Chart  {
 
     getComputedHeight (y_val) {
         console.log(y_val)
+        console.log(this.current_roof_height)
+
+        if( y_val < this.current_roof_val) {
+            console.log("value is less")
+
+        }
+
+        if( y_val > this.current_roof_val) {
+            console.log("value is greater")
+        }
+
+
+        var maxIntervals = 5
+        var currIntervals = 1
+        var working_origin = null
+
+        while(!working_origin) {
+            
+            if(y_val > this.getLowerRoofValue() && y_val < this.current_roof_val) {
+                working_origin = true
+                console.log("working origin.")
+                
+                var roof_diff = this.getLowerRoofHeight() - this.current_roof_height
+                console.log(roof_diff)
+
+                var val_diff = this.current_roof_val - this.getLowerRoofValue()
+
+                console.log(val_diff)
+
+                var y_percentage = y_val / val_diff
+
+                console.log(y_percentage)
+
+                var computed_height = y_percentage * roof_diff
+                console.log(computed_height)
+                
+                //console.log(this.y_corrdinate_0 - this.y_roof_1_height )
+
+                //console.log( (.25 * roof_diff) )
+                
+                
+                //var y_percentage = y_val / this.current_roof_val
+                
+
+                //var y_val_diff = y_percentage * roof_diff
+                //console.log(y_val_diff)
+                
+                
+            }
+            else{
+                console.log("non origin")
+
+                if(y_val > this.current_roof_val) this.setCurrentRoofToNext()
+                console.log(this.current_roof_val)
+                
+            }
+
+            if(currIntervals >= maxIntervals) break
+            currIntervals++
+
+        }
+
 
 
     }
@@ -530,6 +593,68 @@ export class Chart  {
             return this.x_corrdinate_0
         }
     }
+
+
+
+    getLowerRoofHeight() {
+        if(this.current_roof_height === this.y_roof_3_height) {
+            return this.y_roof_2_height
+        }
+
+        else if(this.current_roof_height === this.y_roof_2_height) {
+            return this.y_roof_1_height
+        }
+
+        else if(this.current_roof_height === this.y_roof_1_height) {
+            return this.y_corrdinate_0
+        }
+
+    }
+
+    getHigherRoofHeight() {
+        if(this.current_roof_height === this.y_roof_3_height) {
+            return this.y_roof_3_height
+        }
+
+        else if(this.current_roof_height === this.y_roof_2_height) {
+            return this.y_roof_3_height
+        }
+
+        else if(this.current_roof_height === this.y_roof_1_height) {
+            return this.y_roof_2_height
+        }
+    }
+
+    getLowerRoofValue() {
+        if(this.current_roof_height === this.y_roof_3_height) {
+            return this.y_roof_2_val
+        }
+
+        else if(this.current_roof_height === this.y_roof_2_height) {
+            return this.y_roof_1_val
+        }
+
+        else if(this.current_roof_height === this.y_roof_1_height) {
+            return 0
+        }
+
+    }
+
+    getHigherRoofValue() {
+
+        if(this.current_roof_height === this.y_roof_3_height) {
+            return this.y_roof_3_val
+        }
+
+        else if(this.current_roof_height === this.y_roof_2_height) {
+            return this.y_roof_3_val
+        }
+
+        else if(this.current_roof_height === this.y_roof_1_height) {
+            return this.y_roof_2_val
+        }
+    }
+
     //-----------------------------------------
 
 
