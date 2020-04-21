@@ -363,10 +363,25 @@ export class Chart  {
         console.log(this.current_wall_val)
 
         var x_val = this.data_x[1]
+        var y_val = this.data_y[1]
+
         console.log(x_val)
 
         var computed_width = this.getComputedWidth(x_val)
+        
+        
+        console.log(computed_width)
+        
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
+        this.ctx.fillText("2", computed_width, this.y_corrdinate_0)
+        this.ctx.restore()
+        this.ctx.stroke()
 
+
+
+        var computed_height = this.getComputedHeight(y_val)
 
 
 
@@ -399,25 +414,32 @@ export class Chart  {
     }
     //---------------------------------------------------
 
-    //calculating height and widht for x hidden values----------------------
+    //calculating height and width for x hidden values----------------------
     getComputedWidth (x_val) {
-        //console.log(this.x_corrdinate_0, this.current_wall_width)
-        var origin_x_width = this.current_wall_width - this.x_corrdinate_0
-        console.log(origin_x_width)
-        console.log( (this.current_wall_val / x_val) )
+        
+        var walls_diff = this.current_wall_width - this.getPrevWallWidth()
+        //console.log(walls_diff)
 
         var value_percentage_right_part = parseInt((this.current_wall_val / x_val).toString().split('.')[1])
-        //.split('.')[1]
-        var value_percentage = 0. + value_percentage_right_part
+        var x_val_percentage = parseFloat( "0." + value_percentage_right_part.toString() )
 
-        console.log(value_percentage_right_part)
-        console.log(this.current_wall_val)
+        //console.log(x_val_percentage)
+
+        var x_val_diff = x_val_percentage * walls_diff
+
+        //console.log(x_val_diff)
+
+        //console.log(this.current_wall_width, this.current_wall_width - x_val_diff)
+
+        return (this.current_wall_width - x_val_diff)
 
 
 
     }
 
     getComputedHeight (y_val) {
+        console.log(y_val)
+
 
     }
     //----------------------------------------------------------------
@@ -485,6 +507,29 @@ export class Chart  {
         }
     }
 
+
+
+    getPrevWallWidth() {
+        if(this.current_wall_width === this.x_wall_1_width) {
+            return this.x_corrdinate_0
+        }
+        
+        else if(this.current_wall_width === this.x_wall_2_width) {
+            return this.x_wall_1_width
+        }
+
+        else if(this.current_wall_width === this.x_wall_3_width) {
+            return this.x_wall_2_width
+        }
+
+        else if(this.current_wall_width === this.x_wall_4_width) {
+            return this.x_wall_3_width
+        }
+
+        else if(!this.current_wall_width) {
+            return this.x_corrdinate_0
+        }
+    }
     //-----------------------------------------
 
 
@@ -492,3 +537,54 @@ export class Chart  {
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+getComputedWidth (x_val) {
+        console.log(this.x_corrdinate_0, this.current_wall_width)
+        var origin_x_width = this.current_wall_width - this.x_corrdinate_0
+        console.log(origin_x_width)
+        //console.log( (this.current_wall_val / x_val) )
+
+        //var value_percentage_right_part = parseInt((this.current_wall_val / x_val).toString().split('.')[1])
+        //.split('.')[1]
+        
+        var value_percentage_right_part = parseInt((this.current_wall_val / x_val).toString().split('.')[1])
+        var x_val_percentage = parseFloat( "0." + value_percentage_right_part.toString() )
+
+        //console.log(value_percentage_right_part)
+        //console.log(x_val_percentage)
+        
+        var x_val_diff = x_val_percentage * origin_x_width
+        
+        console.log(x_val_diff)
+
+        var computedWidth = this.current_wall_width - x_val_diff
+        //console.log(this.current_wall_width, computedWidth)
+
+        return computedWidth
+
+    }
+
+*/
