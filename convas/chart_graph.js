@@ -382,10 +382,18 @@ export class Chart  {
 
 
         var computed_height = this.getComputedHeight(y_val)
+        console.log(computed_height)
 
 
 
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
 
+        this.ctx.fillText("500", computed_width, computed_height)
+
+        this.ctx.restore()
+        this.ctx.stroke()
 
 
 
@@ -473,8 +481,11 @@ export class Chart  {
 
                 console.log(y_percentage)
 
-                var computed_height = y_percentage * roof_diff
+                var computed_height = this.getLowerRoofHeight() - (y_percentage * roof_diff) 
                 console.log(computed_height)
+
+
+                return computed_height
                 
                 //console.log(this.y_corrdinate_0 - this.y_roof_1_height )
 
@@ -712,4 +723,86 @@ getComputedWidth (x_val) {
 
     }
 
-*/
+
+
+
+    drawLine() {
+
+        this.ctx.beginPath()
+
+        /*if(this.data_x[0] === this.x_wall_1_val && this.data_y[0] === this.y_roof_1_val) {
+            console.log("dara")
+            this.ctx.moveTo(this.x_corrdinate_0, this.y_corrdinate_0)
+            this.ctx.lineTo(this.x_wall_1_width  , this.y_roof_1_height )
+            this.ctx.stroke()
+        }*/
+
+     //   console.log("drawing.....................///")
+
+
+        //var current_wall_val = this.x_wall_2_val
+/*
+        this.setCurrentWallToNext()
+        this.setCurrentRoofToNext()
+
+
+        this.setCurrentWallToNext()
+        console.log(this.current_wall_val)
+
+        var x_val = this.data_x[1]
+        var y_val = this.data_y[1]
+
+        console.log(x_val)
+
+        var computed_width = this.getComputedWidth(x_val)
+        
+        
+        console.log(computed_width)
+        
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
+        this.ctx.fillText("2", computed_width, this.y_corrdinate_0)
+        this.ctx.restore()
+        this.ctx.stroke()
+
+
+
+        var computed_height = this.getComputedHeight(y_val)
+        console.log(computed_height)
+
+
+
+        this.ctx.save()
+        this.ctx.textAlign="center"
+        this.ctx.textBaseline="middle"
+
+        this.ctx.fillText("500", computed_width, computed_height)
+
+        this.ctx.restore()
+        this.ctx.stroke()
+
+
+
+
+
+        /*this.data_x.forEach((x_val, index) => {
+            console.log(x_val, index)
+
+            if(x_val <= this.current_wall_val) {
+                var computed_width = this.getComputedWidth(x_val)
+                //var computed_height = this.getComputedHeight(y_val)
+
+
+            }
+
+
+
+
+            if(x_val > this.current_wall_val) {
+                this.setCurrentWallToNext()
+            }
+        
+
+            
+        })*/
