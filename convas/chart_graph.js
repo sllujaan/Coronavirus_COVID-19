@@ -42,6 +42,8 @@ export class Chart  {
     x_drawLineCoordinates_prev
     y_drawLineCoordinates_prev
 
+    windowInnerWidth
+
 
 
     
@@ -103,7 +105,25 @@ export class Chart  {
         this.drawLine()
 
         //this.ctx.stroke()
+        this.updateChart()
 
+    }
+
+    updateChart() {
+        window.addEventListener('resize', e => {
+            console.log(e)
+            console.log(this.windowInnerWidth)
+
+            var current_innerWidth = e.target.innerWidth
+            var diff = current_innerWidth - this.windowInnerWidth
+
+            console.log(diff)
+
+            if(diff > 10 || diff < -10) {
+                console.log("updated Chart...")
+                this.windowInnerWidth = e.target.innerWidth
+            }
+        })
     }
 
     isValidJson(dataSet_x_y) {
@@ -138,9 +158,16 @@ export class Chart  {
     setWidthHeight() {
         console.log("setwidthHeight Method")
         console.log(this.canvas)
+        console.log(this.canvas.parentElement)
+        console.log(this.canvas.parentElement.style.width)
 
-        this.canvas.width = ((window.innerWidth) > 300) ?  (window.innerWidth - 20) : (300) 
-        this.canvas.height = (this.canvas.width / 2) 
+        //this.canvas.width = ((window.innerWidth) > 300) ?  (window.innerWidth - 20) : (300) 
+        //this.canvas.height = (this.canvas.width / 2)
+
+        this.canvas.width = this.canvas.offsetWidth
+        this.canvas.height = (this.canvas.width / 2)
+
+        this.windowInnerWidth = window.innerWidth
     }
 
     drawInnerRect() {
@@ -383,6 +410,7 @@ export class Chart  {
         
         this.ctx.lineWidth = 2
         this.ctx.strokeStyle = "skyblue"
+        this.ctx.lineCap = 'round'
         this.ctx.lineTo(computed_width, computed_height)
         this.ctx.stroke()
 
@@ -883,7 +911,14 @@ getComputedWidth (x_val) {
         
         
         
-        
+        setWidthHeight() {
+        console.log("setwidthHeight Method")
+        console.log(this.canvas)
+        console.log(this.canvas.parentElement)
+
+        this.canvas.width = ((window.innerWidth) > 300) ?  (window.innerWidth - 20) : (300) 
+        this.canvas.height = (this.canvas.width / 2) 
+    }
         
         
         
