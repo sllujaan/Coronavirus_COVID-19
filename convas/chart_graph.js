@@ -39,6 +39,9 @@ export class Chart  {
     current_wall_width
     current_wall_val
 
+    x_drawLineCoordinates_prev
+    y_drawLineCoordinates_prev
+
 
 
     
@@ -342,19 +345,10 @@ export class Chart  {
     drawLine() {
 
         this.ctx.beginPath()
-
-        /*if(this.data_x[0] === this.x_wall_1_val && this.data_y[0] === this.y_roof_1_val) {
-            console.log("dara")
-            this.ctx.moveTo(this.x_corrdinate_0, this.y_corrdinate_0)
-            this.ctx.lineTo(this.x_wall_1_width  , this.y_roof_1_height )
-            this.ctx.stroke()
-        }*/
-
-        console.log("drawing.....................///")
-
-
         this.setCurrentWallToNext()
         this.setCurrentRoofToNext()
+        this.x_drawLineCoordinates_prev = this.x_corrdinate_0
+        this.y_drawLineCoordinates_prev = this.y_corrdinate_0
 
         this.data_x.forEach((x_val, index) => {
 
@@ -366,147 +360,44 @@ export class Chart  {
 
             var computed_width = this.getComputedWidth(x_val)
             var computed_height = this.getComputedHeight(y_val)
+
+            this.drawLineToCoordinates(computed_width, computed_height)
             
-            console.log(computed_width, computed_height)
+            /*console.log(computed_width, computed_height)
             
             this.ctx.fillText("O", computed_width, computed_height)
             this.ctx.moveTo(this.x_corrdinate_0, computed_height)
             this.ctx.lineTo(this.ctx.canvas.width, computed_height)
-            this.ctx.stroke()
+            this.ctx.stroke()*/
             //------------------------------------------------------
 
         })
 
-
-        //this.setCurrentWallToNext()
-        //console.log(this.current_wall_val)
-
- /*       var x_val = this.data_x[0]
-        var y_val = this.data_y[0]
-
-        console.log(x_val)
-
-        var computed_width = this.getComputedWidth(x_val)
-        var computed_height = this.getComputedHeight(y_val)
-        
-        console.log(computed_width, computed_height)
-          
-        this.ctx.fillText("O", computed_width, computed_height)
-
-
-
-
-
-
-        var x_val = this.data_x[1]
-        var y_val = this.data_y[1]
-
-        console.log(x_val)
-
-        var computed_width = this.getComputedWidth(x_val)
-        var computed_height = this.getComputedHeight(y_val)
-        
-        console.log(computed_width, computed_height)
-          
-        this.ctx.fillText("o", computed_width, computed_height)
-
-
-
-
-
-
-        //compute line--------------------------------------
-/*        var x_val = this.data_x[2]
-        var y_val = this.data_y[2]
-
-        console.log(x_val)
-
-        var computed_width = this.getComputedWidth(x_val)
-        var computed_height = this.getComputedHeight(y_val)
-        
-        console.log(computed_width, computed_height)
-          
-        this.ctx.fillText("O", computed_width, computed_height)
-        this.ctx.moveTo(this.x_corrdinate_0, computed_height)
-        this.ctx.lineTo(this.ctx.canvas.width, computed_height)
-        this.ctx.stroke()
-        //------------------------------------------------------
-
-
-        //compute line--------------------------------------
-/*        var x_val = this.data_x[3]
-        var y_val = this.data_y[3]
-
-        console.log(x_val)
-
-        var computed_width = this.getComputedWidth(x_val)
-        var computed_height = this.getComputedHeight(y_val)
-        
-        console.log(computed_width, computed_height)
-          
-        this.ctx.fillText("O", computed_width, computed_height)
-        this.ctx.moveTo(this.x_corrdinate_0, computed_height)
-        this.ctx.lineTo(this.ctx.canvas.width, computed_height)
-        this.ctx.stroke() */
-        //------------------------------------------------------
-
-
-        
-
-
-        
-        /*
-        
-        this.ctx.save()
-        this.ctx.textAlign="center"
-        this.ctx.textBaseline="middle"
-        this.ctx.fillText("2", computed_width, this.y_corrdinate_0)
-        this.ctx.restore()
-        this.ctx.stroke()
-
-
-
-        
-        console.log(computed_height)
-
-
-
-        this.ctx.save()
-        this.ctx.textAlign="center"
-        this.ctx.textBaseline="middle"
-
-        this.ctx.fillText("500", computed_width, computed_height)
-
-        this.ctx.restore()
-        this.ctx.stroke()
-
-        */
-
-
-
-        /*this.data_x.forEach((x_val, index) => {
-            console.log(x_val, index)
-
-            if(x_val <= this.current_wall_val) {
-                var computed_width = this.getComputedWidth(x_val)
-                //var computed_height = this.getComputedHeight(y_val)
-
-
-            }
-
-
-
-
-            if(x_val > this.current_wall_val) {
-                this.setCurrentWallToNext()
-            }
-        
-
-            
-        })*/
-
     }
     //---------------------------------------------------
+
+    //drwing lines from previous coordinates to current coordinates-----
+    drawLineToCoordinates(computed_width, computed_height) {
+        
+        this.ctx.moveTo(this.x_drawLineCoordinates_prev, this.y_drawLineCoordinates_prev)
+        
+        this.ctx.lineWidth = 2
+        this.ctx.strokeStyle = "skyblue"
+        this.ctx.lineTo(computed_width, computed_height)
+        this.ctx.stroke()
+
+        
+ /*       this.ctx.save()
+        this.ctx.arc(computed_width, computed_height, 10, 0, 2*Math.PI)
+        this.ctx.fillStyle = "green"
+        this.ctx.fill()
+        this.ctx.stroke()
+        this.ctx.restore()*/
+
+        this.x_drawLineCoordinates_prev = computed_width
+        this.y_drawLineCoordinates_prev = computed_height
+    }
+    //---------------------------------------------
 
     //calculating height and width for x hidden values----------------------
     getComputedWidth (x_val) {
@@ -590,38 +481,7 @@ export class Chart  {
             if(y_val > this.getLowerRoofValue() && y_val < this.current_roof_val) {
                 working_origin = true
                 console.log("working origin.")
-
                 return this.calculateHeight(y_val)
-  
-                
-          /*      var roof_diff = this.getLowerRoofHeight() - this.current_roof_height
-                console.log(roof_diff)
-
-                var val_diff = this.current_roof_val - this.getLowerRoofValue()
-
-                console.log(val_diff)
-
-                var y_percentage = y_val / val_diff
-
-                console.log(y_percentage)
-
-                var computed_height = this.getLowerRoofHeight() - (y_percentage * roof_diff) 
-                console.log(computed_height)
-
-
-                return computed_height */
-                
-                //console.log(this.y_corrdinate_0 - this.y_roof_1_height )
-
-                //console.log( (.25 * roof_diff) )
-                
-                
-                //var y_percentage = y_val / this.current_roof_val
-                
-
-                //var y_val_diff = y_percentage * roof_diff
-                //console.log(y_val_diff)
-                
                 
             }
             else{
