@@ -1,6 +1,8 @@
 
 
 import {covid_data, showData} from './fetch_api/covid-19_fetch_api.js'
+import { covid_19_data } from "./convas/chart_data_api.js";
+import { Chart } from "./convas/chart_graph.js";
 
 
 var countries = ['Spain', 'Italy', 'Germany', 'France', 'US', 'United Kingdom', 'Iran', 'Turkey', 'China', 'Belgium', 'Brazil', 'Netherlands', 'Pakistan', 'India', 'Canada', 'Thailand']
@@ -66,6 +68,45 @@ function makeSelectOption(arr) {
 
 
 
+
+
+//chart content---------------------
+var chart_new = document.getElementById("chart-new")
+var ctx_new = chart_new.getContext('2d')
+
+try {
+    
+
+    
+    var myChart = new Chart(ctx_new, "", 0, "", 0, covid_19_data)
+    
+    var windowInnerWidth = window.innerWidth
+    
+    window.addEventListener('resize', e => {
+        console.log(e)
+        console.log(windowInnerWidth)
+    
+        var current_innerWidth = e.target.innerWidth
+        var diff = current_innerWidth - windowInnerWidth
+    
+        console.log(diff)
+    
+        if(diff > 10 || diff < -10) {
+            console.log("updated Chart...")
+            myChart = myChart.update()
+            
+            windowInnerWidth = e.target.innerWidth
+        }
+    })
+    
+    }
+    catch (err) {
+        console.error(err)
+    }
+
+
+
+//-------------------------
 
 
 
