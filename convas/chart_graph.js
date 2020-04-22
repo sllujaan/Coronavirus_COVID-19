@@ -387,12 +387,17 @@ export class Chart  {
         this.ctx.stroke()
 
         
- /*       this.ctx.save()
-        this.ctx.arc(computed_width, computed_height, 10, 0, 2*Math.PI)
-        this.ctx.fillStyle = "green"
+
+        
+        var radius = 5
+        this.ctx.save()
+        this.ctx.moveTo(computed_width + radius, computed_height)
+        this.ctx.arc(computed_width, computed_height, radius, 0, 2*Math.PI)
+        this.ctx.strokeStyle = "#4287f5"
+        this.ctx.fillStyle = "skyblue"
         this.ctx.fill()
         this.ctx.stroke()
-        this.ctx.restore()*/
+        this.ctx.restore()
 
         this.x_drawLineCoordinates_prev = computed_width
         this.y_drawLineCoordinates_prev = computed_height
