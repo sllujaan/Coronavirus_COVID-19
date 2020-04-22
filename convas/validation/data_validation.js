@@ -53,7 +53,7 @@ export function validateArray(dataSet_x_y) {
         if(!Array.isArray(dataSet_x_y[1])) throw Error("subArray data is not present for y axis value.")
         validateArray_Y(dataSet_x_y[1])
     }
-    //---------------------------------------------
+    //------------------------------------------------
 
     
 }
