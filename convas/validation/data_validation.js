@@ -32,17 +32,18 @@ export function validateDataSet(dataSet_x_y) {
 }
 
 export function validateArray(dataSet_x_y) {
+    console.log(dataSet_x_y.length)
 
     if(dataSet_x_y.length === 0) throw Error("Array must have json objects, or two subArrays which should have x and y axis values")
 
     //validating that user has giving json data-----------------------
-    if(dataSet_x_y.constructor === ({}).constructor) {
-        if(dataSet_x_y.length < 4) {}
+    if(dataSet_x_y[0].constructor === ({}).constructor) {
+        if(dataSet_x_y.length < 4) throw Error("Array must have at least 4 json object.")
     }
     //---------------------------------------------
 
     //validating that user has giving arrays data-----------------------
-    if(dataSet_x_y.constructor === [].constructor) {
+    if(dataSet_x_y[0].constructor === [].constructor) {
         if(dataSet_x_y.length !== 2) throw Error("Array must have two subArrays which should have x and y axis values")
 
         if(!Array.isArray(dataSet_x_y[0])) throw Error("subArray data is not present for x axis value.")

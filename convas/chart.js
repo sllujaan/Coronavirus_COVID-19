@@ -30,7 +30,7 @@ try {
 var data_x = [100, 200, 300]
 var data_y = [1000, 4000, 10000, 12000]
 
-var myChart = new Chart(ctx_new, "", "", [])
+var myChart = new Chart(ctx_new, "", "", [{day:1}, {day:1}, {day:1}, {day:1}, {day:1}])
 
 var windowInnerWidth = window.innerWidth
 
