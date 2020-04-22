@@ -353,16 +353,35 @@ export class Chart  {
         console.log("drawing.....................///")
 
 
-        //var current_wall_val = this.x_wall_2_val
-
         this.setCurrentWallToNext()
         this.setCurrentRoofToNext()
+
+        this.data_x.forEach((x_val, index) => {
+
+            //compute line--------------------------------------
+            var x_val = this.data_x[index]
+            var y_val = this.data_y[index]
+
+            console.log(x_val)
+
+            var computed_width = this.getComputedWidth(x_val)
+            var computed_height = this.getComputedHeight(y_val)
+            
+            console.log(computed_width, computed_height)
+            
+            this.ctx.fillText("O", computed_width, computed_height)
+            this.ctx.moveTo(this.x_corrdinate_0, computed_height)
+            this.ctx.lineTo(this.ctx.canvas.width, computed_height)
+            this.ctx.stroke()
+            //------------------------------------------------------
+
+        })
 
 
         //this.setCurrentWallToNext()
         //console.log(this.current_wall_val)
 
-        var x_val = this.data_x[0]
+ /*       var x_val = this.data_x[0]
         var y_val = this.data_y[0]
 
         console.log(x_val)
@@ -397,7 +416,7 @@ export class Chart  {
 
 
         //compute line--------------------------------------
-        var x_val = this.data_x[2]
+/*        var x_val = this.data_x[2]
         var y_val = this.data_y[2]
 
         console.log(x_val)
@@ -415,7 +434,7 @@ export class Chart  {
 
 
         //compute line--------------------------------------
-        var x_val = this.data_x[3]
+/*        var x_val = this.data_x[3]
         var y_val = this.data_y[3]
 
         console.log(x_val)
@@ -428,8 +447,11 @@ export class Chart  {
         this.ctx.fillText("O", computed_width, computed_height)
         this.ctx.moveTo(this.x_corrdinate_0, computed_height)
         this.ctx.lineTo(this.ctx.canvas.width, computed_height)
-        this.ctx.stroke()
+        this.ctx.stroke() */
         //------------------------------------------------------
+
+
+        
 
 
         
@@ -500,53 +522,10 @@ export class Chart  {
 
         while(!working_origin) {
 
-        
             if(x_val < this.current_wall_val) {
                 console.log("working origin. x")
-                this.calculateWidth(x_val)
                 working_origin = true
-                var walls_diff = this.current_wall_width - this.getPrevWallWidth()
-                console.log(walls_diff)
-
-                var value_percentage_right_part = parseInt((this.current_wall_val / x_val).toString().split('.')[1])
-                var x_val_percentage = parseFloat( "0." + value_percentage_right_part.toString() )
-
-                console.log(x_val_percentage)
-
-                var x_val_diff = x_val_percentage * walls_diff
-
-                //console.log(x_val_diff)
-
-                //console.log(this.current_wall_width, this.current_wall_width - x_val_diff)
-
-
-                //console.log(this.current_wall_val / x_val)
-
-                console.log(this.current_wall_val)
-
-                var val_diff = this.current_wall_val - this.getPrevWallVal()
-
-                console.log(val_diff)
-                console.log(x_val)
-
-                console.log( (val_diff / x_val))
-                
-
-                var x_percentage = (val_diff / x_val)
-
-                var computed_width = this.current_wall_width - (x_percentage * walls_diff)
-
-                console.log(computed_width)
-
-                
-                return computed_width
-
-
-
-
-
-
-                //return (this.current_wall_width - x_val_diff)
+                return this.calculateWidth(x_val)
             }
 
             else {
@@ -569,14 +548,29 @@ export class Chart  {
     calculateWidth(x_val) {
         var diff_walls_value = this.current_wall_val - this.getPrevWallVal()
         var block_width = this.current_wall_width - this.getPrevWallWidth()
-        var diff_x_val = x_val - diff_walls_value
+        var diff_x_val = x_val - this.getPrevWallVal()
         var x_percentage = diff_x_val / diff_walls_value
         var x_width = x_percentage * block_width
         var computed_width = this.getPrevWallWidth() + x_width
         console.log(computed_width)
         //console.warn("computed_width is", computed_width, "for value", x_val)
 
-        console.table(["computed_width = "+computed_width, "x_val = "+x_val, "block_width = "+block_width, "this.getPrevWallWidth() = "+this.getPrevWallWidth(), "this.getPrevWallVal() = "+this.getPrevWallVal()])
+        /*
+        console.table([
+            "x_val = "+x_val,
+            "diff_walls_value = "+diff_walls_value,
+            "block_width = "+block_width,
+            "diff_x_val = "+diff_x_val,
+            "x_percentage = "+x_percentage,
+            "x_width = "+x_width,
+            "computed_width = "+computed_width,
+            "this.getPrevWallWidth() = "+this.getPrevWallWidth(),
+            "this.getPrevWallVal() = "+this.getPrevWallVal(),
+            "this.current_wall_width = "+this.current_wall_width
+        
+        ])*/
+
+        return computed_width
     }
 
     getComputedHeight (y_val) {
@@ -596,6 +590,8 @@ export class Chart  {
             if(y_val > this.getLowerRoofValue() && y_val < this.current_roof_val) {
                 working_origin = true
                 console.log("working origin.")
+
+                this.calculateHeight(y_val)
                 
                 var roof_diff = this.getLowerRoofHeight() - this.current_roof_height
                 console.log(roof_diff)
@@ -642,6 +638,31 @@ export class Chart  {
 
 
 
+    }
+
+    calculateHeight(y_val) {
+        var diff_roof_value = this.current_roof_val - this.getLowerRoofValue()
+        var block_height = this.getLowerRoofHeight() - this.current_roof_height
+        var diff_y_val = y_val - this.getLowerRoofValue()
+        var y_percentage = diff_y_val / diff_roof_value
+        var y_height = y_percentage * block_height
+        var computed_height = this.getLowerRoofHeight - y_height
+        //console.log(computed_width)
+        //console.warn("computed_width is", computed_width, "for value", x_val)
+
+        console.table([
+            "y_val = "+y_val,
+            "diff_roof_value = "+diff_roof_value,
+            "block_height = "+block_height,
+            "diff_y_val = "+diff_y_val,
+            "y_percentage = "+y_percentage,
+            "y_height = "+y_height,
+            "computed_height = "+computed_height,
+            "this.getLowerRoofHeight() = "+this.getLowerRoofHeight(),
+            "this.getLowerRoofValue() = "+this.getLowerRoofValue(),
+            "this.current_roof_height = "+this.current_roof_height
+        
+        ])
     }
     //----------------------------------------------------------------
 
