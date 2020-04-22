@@ -24,7 +24,75 @@ export function validateLabels(label_x, label_y) {
 export function validateDataSet(dataSet_x_y) {
     if(!dataSet_x_y) throw Error("Data is required to draw the chart.")
 
-    if( typeof dataSet_x_y !== 'object' && !Array.isArray(dataSet_x_y) ) throw Error("dataSet must be a object of type json or array of json object.")
+    if( typeof dataSet_x_y !== 'object' ) throw Error("dataSet must be arry of json objects or two subArrays for x and y axis values.")
 
+    if( Array.isArray(dataSet_x_y) ) validateArray(dataSet_x_y)
+
+
+}
+
+export function validateArray(dataSet_x_y) {
+
+    if(dataSet_x_y.length === 0) throw Error("Array must have json objects, or two subArrays which should have x and y axis values")
+
+    //validating that user has giving json data-----------------------
+    if(dataSet_x_y.constructor === ({}).constructor) {
+        if(dataSet_x_y.length < 4) {}
+    }
+    //---------------------------------------------
+
+    //validating that user has giving arrays data-----------------------
+    if(dataSet_x_y.constructor === [].constructor) {
+        if(dataSet_x_y.length !== 2) throw Error("Array must have two subArrays which should have x and y axis values")
+
+        if(!Array.isArray(dataSet_x_y[0])) throw Error("subArray data is not present for x axis value.")
+        validateArray_X(dataSet_x_y[0])
+
+        if(!Array.isArray(dataSet_x_y[1])) throw Error("subArray data is not present for y axis value.")
+        validateArray_Y(dataSet_x_y[1])
+    }
+    //---------------------------------------------
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export function validateArray_X(dataSet_x) {
+    if(dataSet_x.length < 4) throw Error("x axis subArray must have at least 4 numeric value.")
+
+    dataSet_x.forEach(x_val => {
+        if((typeof x_val !== 'number')) throw Error("x axis subArray must have at least 4 numeric value. Repeat")
+    })
+
+}
+
+
+export function validateArray_Y(dataSet_y) {
+    if(dataSet_y.length < 3) throw Error("y axis subArray must have at least 3 numeric value.")
+
+    dataSet_y.forEach(y_val => {
+        if((typeof y_val !== 'number')) throw Error("y axis subArray must have at least 3 numeric value. Repeat")
+    })
 
 }
