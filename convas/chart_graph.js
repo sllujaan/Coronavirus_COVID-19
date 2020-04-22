@@ -115,24 +115,6 @@ export class Chart  {
         return new Chart(this.ctx, "", 0, "", 0, this.dataSet_x_y)
     }
 
-    updateChart() {
-        window.addEventListener('resize', e => {
-            console.log(e)
-            console.log(this.windowInnerWidth)
-
-            var current_innerWidth = e.target.innerWidth
-            var diff = current_innerWidth - this.windowInnerWidth
-
-            console.log(diff)
-
-            if(diff > 10 || diff < -10) {
-                console.log("updated Chart...")
-
-                this.windowInnerWidth = e.target.innerWidth
-            }
-        })
-    }
-
     isValidJson(dataSet_x_y) {
         if(!Array.isArray(dataSet_x_y) && Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) {
             return false
@@ -171,10 +153,16 @@ export class Chart  {
         //this.canvas.width = ((window.innerWidth) > 300) ?  (window.innerWidth - 20) : (300) 
         //this.canvas.height = (this.canvas.width / 2)
 
+
         this.canvas.width = this.canvas.offsetWidth
         this.canvas.height = (this.canvas.width / 2)
 
         this.windowInnerWidth = window.innerWidth
+
+        
+        //if(this.canvas.parentElement && this.canvas.parentElement.classList.)
+
+
     }
 
     drawInnerRect() {
