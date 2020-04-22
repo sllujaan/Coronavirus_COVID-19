@@ -11,6 +11,7 @@ export class Chart  {
     data_x
     data_y
     canvas
+    dataSet_x_y
     
     innerRectOffset_percentage = .2
     x_corrdinate_0
@@ -53,11 +54,11 @@ export class Chart  {
 
         if(label_x && ((typeof label_x !== 'string') && (typeof label_x !== 'number'))) throw Error("Label_x value must be a string or number.")
 
-        if(!data_x ) throw Error("data_x values are missing.")
+        //if(!data_x ) throw Error("data_x values are missing.")
 
         if(label_y && ((typeof label_y !== 'string') && (typeof label_y !== 'number'))) throw Error("Label_y value must be a string or number.")
         
-        if(!data_y ) throw Error("data_y values are missing.")
+        //if(!data_y ) throw Error("data_y values are missing.")
 
 
         if(dataSet_x_y && (typeof dataSet_x_y !== 'object' && !Array.isArray(dataSet_x_y) )) throw Error("dataSet must be a object of type json or array of json object.")
@@ -69,6 +70,7 @@ export class Chart  {
         //if(Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) throw Error("two values are required in a json Object")
 
         console.log(dataSet_x_y)
+        this.dataSet_x_y = dataSet_x_y
 
         
 
@@ -105,8 +107,12 @@ export class Chart  {
         this.drawLine()
 
         //this.ctx.stroke()
-        this.updateChart()
 
+    }
+
+    update() {
+        console.log(this.dataSet_x_y)
+        return new Chart(this.ctx, "", 0, "", 0, this.dataSet_x_y)
     }
 
     updateChart() {
@@ -121,6 +127,7 @@ export class Chart  {
 
             if(diff > 10 || diff < -10) {
                 console.log("updated Chart...")
+
                 this.windowInnerWidth = e.target.innerWidth
             }
         })

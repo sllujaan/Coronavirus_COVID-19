@@ -32,6 +32,24 @@ var data_y = [1000, 4000, 10000, 12000]
 
 var myChart = new Chart(ctx_new, "", data_x, "", [1000, 2000, 3000, 4000], covid_19_data)
 
+var windowInnerWidth = window.innerWidth
+
+window.addEventListener('resize', e => {
+    console.log(e)
+    console.log(windowInnerWidth)
+
+    var current_innerWidth = e.target.innerWidth
+    var diff = current_innerWidth - windowInnerWidth
+
+    console.log(diff)
+
+    if(diff > 10 || diff < -10) {
+        console.log("updated Chart...")
+        myChart = myChart.update()
+        
+        windowInnerWidth = e.target.innerWidth
+    }
+})
 
 }
 catch (err) {
