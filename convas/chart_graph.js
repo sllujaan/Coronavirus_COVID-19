@@ -591,9 +591,10 @@ export class Chart  {
                 working_origin = true
                 console.log("working origin.")
 
-                this.calculateHeight(y_val)
+                return this.calculateHeight(y_val)
+  
                 
-                var roof_diff = this.getLowerRoofHeight() - this.current_roof_height
+          /*      var roof_diff = this.getLowerRoofHeight() - this.current_roof_height
                 console.log(roof_diff)
 
                 var val_diff = this.current_roof_val - this.getLowerRoofValue()
@@ -608,7 +609,7 @@ export class Chart  {
                 console.log(computed_height)
 
 
-                return computed_height
+                return computed_height */
                 
                 //console.log(this.y_corrdinate_0 - this.y_roof_1_height )
 
@@ -646,7 +647,7 @@ export class Chart  {
         var diff_y_val = y_val - this.getLowerRoofValue()
         var y_percentage = diff_y_val / diff_roof_value
         var y_height = y_percentage * block_height
-        var computed_height = this.getLowerRoofHeight - y_height
+        var computed_height = this.getLowerRoofHeight() - y_height
         //console.log(computed_width)
         //console.warn("computed_width is", computed_width, "for value", x_val)
 
@@ -663,6 +664,9 @@ export class Chart  {
             "this.current_roof_height = "+this.current_roof_height
         
         ])
+
+
+        return computed_height
     }
     //----------------------------------------------------------------
 
