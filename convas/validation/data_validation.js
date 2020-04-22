@@ -39,6 +39,7 @@ export function validateArray(dataSet_x_y) {
     //validating that user has giving json data-----------------------
     if(dataSet_x_y[0].constructor === ({}).constructor) {
         if(dataSet_x_y.length < 4) throw Error("Array must have at least 4 json object.")
+        validateArrayOfJsons(dataSet_x_y)
     }
     //---------------------------------------------
 
@@ -56,6 +57,17 @@ export function validateArray(dataSet_x_y) {
 
     
 }
+
+
+
+export function validateArrayOfJsons(dataSet_x_y) {
+    dataSet_x_y.forEach(obj => {
+        if(obj.length !== 2) throw Error("Each json oject must have only two properties.")
+
+        if(typeof obj[0] !== 'number' || typeof obj[1] !== 'number') throw Error("json ojects properties must have numeric values.")
+    })
+}
+
 
 
 
