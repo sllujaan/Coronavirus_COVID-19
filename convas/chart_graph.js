@@ -414,6 +414,24 @@ export class Chart  {
         //------------------------------------------------------
 
 
+        //compute line--------------------------------------
+        var x_val = this.data_x[3]
+        var y_val = this.data_y[3]
+
+        console.log(x_val)
+
+        var computed_width = this.getComputedWidth(x_val)
+        var computed_height = this.getComputedHeight(y_val)
+        
+        console.log(computed_width, computed_height)
+          
+        this.ctx.fillText("O", computed_width, computed_height)
+        this.ctx.moveTo(this.x_corrdinate_0, computed_height)
+        this.ctx.lineTo(this.ctx.canvas.width, computed_height)
+        this.ctx.stroke()
+        //------------------------------------------------------
+
+
         
         /*
         
@@ -471,6 +489,8 @@ export class Chart  {
     //calculating height and width for x hidden values----------------------
     getComputedWidth (x_val) {
 
+        console.log("---------------------------generating width------------------------------------------")
+
         if(x_val === this.current_wall_val) return this.current_wall_width
 
 
@@ -482,15 +502,16 @@ export class Chart  {
 
         
             if(x_val < this.current_wall_val) {
-                
+                console.log("working origin. x")
+                this.calculateWidth(x_val)
                 working_origin = true
                 var walls_diff = this.current_wall_width - this.getPrevWallWidth()
-                //console.log(walls_diff)
+                console.log(walls_diff)
 
                 var value_percentage_right_part = parseInt((this.current_wall_val / x_val).toString().split('.')[1])
                 var x_val_percentage = parseFloat( "0." + value_percentage_right_part.toString() )
 
-                //console.log(x_val_percentage)
+                console.log(x_val_percentage)
 
                 var x_val_diff = x_val_percentage * walls_diff
 
@@ -498,7 +519,34 @@ export class Chart  {
 
                 //console.log(this.current_wall_width, this.current_wall_width - x_val_diff)
 
-                return (this.current_wall_width - x_val_diff)
+
+                //console.log(this.current_wall_val / x_val)
+
+                console.log(this.current_wall_val)
+
+                var val_diff = this.current_wall_val - this.getPrevWallVal()
+
+                console.log(val_diff)
+                console.log(x_val)
+
+                console.log( (val_diff / x_val))
+                
+
+                var x_percentage = (val_diff / x_val)
+
+                var computed_width = this.current_wall_width - (x_percentage * walls_diff)
+
+                console.log(computed_width)
+
+                
+                return computed_width
+
+
+
+
+
+
+                //return (this.current_wall_width - x_val_diff)
             }
 
             else {
@@ -517,7 +565,22 @@ export class Chart  {
 
     }
 
+
+    calculateWidth(x_val) {
+        var diff_walls_value = this.current_wall_val - this.getPrevWallVal()
+        var block_width = this.current_wall_width - this.getPrevWallWidth()
+        var diff_x_val = x_val - diff_walls_value
+        var x_percentage = diff_x_val / diff_walls_value
+        var x_width = x_percentage * block_width
+        var computed_width = this.getPrevWallWidth() + x_width
+        console.log(computed_width)
+        //console.warn("computed_width is", computed_width, "for value", x_val)
+
+        console.table(["computed_width = "+computed_width, "x_val = "+x_val, "block_width = "+block_width, "this.getPrevWallWidth() = "+this.getPrevWallWidth(), "this.getPrevWallVal() = "+this.getPrevWallVal()])
+    }
+
     getComputedHeight (y_val) {
+        console.log("<<<<<<<<<<<<<<<<<<<<<<generating height>>>>>>>>>>>>>>>>>")
         console.log(y_val)
         console.log(this.current_roof_height)
 
@@ -728,6 +791,26 @@ export class Chart  {
         else if(this.current_roof_height === this.y_roof_1_height) {
             return this.y_roof_2_val
         }
+    }
+
+
+    getPrevWallVal() {
+        if(this.current_wall_width === this.x_wall_1_width) {
+            return 0
+        }
+        
+        else if(this.current_wall_width === this.x_wall_2_width) {
+            return this.x_wall_1_val
+        }
+
+        else if(this.current_wall_width === this.x_wall_3_width) {
+            return this.x_wall_2_val
+        }
+
+        else if(this.current_wall_width === this.x_wall_4_width) {
+            return this.x_wall_3_val
+        }
+
     }
 
     //-----------------------------------------
