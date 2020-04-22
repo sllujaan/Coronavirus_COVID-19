@@ -1,4 +1,5 @@
 
+import {validateData} from './validation/data_validation.js'
 
 
 
@@ -48,26 +49,16 @@ export class Chart  {
 
 
     
-    constructor(ctx, label_x, data_x, label_y, data_y, dataSet_x_y) {
+    constructor(ctx, label_x, label_y, dataSet_x_y) {
 
-        if(!ctx.canvas) throw Error("2d context for canvas is not present..")
-
-        if(label_x && ((typeof label_x !== 'string') && (typeof label_x !== 'number'))) throw Error("Label_x value must be a string or number.")
-
-        //if(!data_x ) throw Error("data_x values are missing.")
-
-        if(label_y && ((typeof label_y !== 'string') && (typeof label_y !== 'number'))) throw Error("Label_y value must be a string or number.")
-        
-        //if(!data_y ) throw Error("data_y values are missing.")
-
-
-        if(dataSet_x_y && (typeof dataSet_x_y !== 'object' && !Array.isArray(dataSet_x_y) )) throw Error("dataSet must be a object of type json or array of json object.")
 
         //if(!this.isValidJson(dataSet_x_y)) throw Error("Each json object requries two values for the chart to be drawn.")
 
         //if(!this.isValidJsonArray(dataSet_x_y)) throw Error("In array Each json object requries two values for the chart to be drawn.")
 
         //if(Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) throw Error("two values are required in a json Object")
+
+        validateData(ctx, label_x, label_y, dataSet_x_y)
 
         console.log(dataSet_x_y)
         this.dataSet_x_y = dataSet_x_y
