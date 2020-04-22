@@ -61,9 +61,11 @@ export function validateArray(dataSet_x_y) {
 
 
 export function validateArrayOfJsons(dataSet_x_y) {
-    dataSet_x_y.forEach(obj => {
-        if(obj.length !== 2) throw Error("Each json oject must have only two properties.")
 
+    dataSet_x_y.forEach(obj => {
+        console.log(Object.keys(obj).length)
+        if(Object.keys(obj).length !== 2) throw Error("Each json oject must have only two properties.")
+        console.log(Object.keys(obj))    
         if(typeof obj[0] !== 'number' || typeof obj[1] !== 'number') throw Error("json ojects properties must have numeric values.")
     })
 }
