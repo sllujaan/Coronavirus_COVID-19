@@ -22,7 +22,6 @@ console.log(data)
 
 
 data.sort((a, b) => a.day - b.day)
-console.log(data)
 
 var prevValue = 0
 data.forEach((obj, index) => {
@@ -34,6 +33,4 @@ data.forEach((obj, index) => {
     }
 })
 
-
-console.log(data)
 
