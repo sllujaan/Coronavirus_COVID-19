@@ -24,4 +24,20 @@ export function calculatedData_Y () {
     data_y_verified = uniqueSet
 }
 
+export function getCalculatedDataSet_x_y (dataSet_x_y) {
+    dataSet_x_y.sort((a, b) => a.day - b.day)
+
+    var prevValue = 0
+    dataSet_x_y.forEach((obj, index) => {
+        if(!(obj.day > prevValue)) {
+            dataSet_x_y.splice(index, 1)
+        }
+        else{
+            prevValue = obj.day
+        }
+    })
+
+    return dataSet_x_y
+}
+
 

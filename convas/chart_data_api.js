@@ -12,11 +12,28 @@ export var covid_19_data = [
 
 console.log(covid_19_data)
 console.log(Object.keys(covid_19_data[0]))
-console.log(typeof covid_19_data)
-
-console.log(!true)
 
 
 
 
+
+var data = [{day:1, inf:5}, {day:2, inf:4}, {day:3, inf:3}, {day:4, inf:2}, {day:1, inf:1}]
+console.log(data)
+
+
+data.sort((a, b) => a.day - b.day)
+console.log(data)
+
+var prevValue = 0
+data.forEach((obj, index) => {
+    if(!(obj.day > prevValue)) {
+        data.splice(index, 1)
+    }
+    else{
+        prevValue = obj.day
+    }
+})
+
+
+console.log(data)
 

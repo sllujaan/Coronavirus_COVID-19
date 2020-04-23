@@ -1,6 +1,6 @@
 
-import {validateData, property1Name, property2Name} from './validation/data_validation.js'
-import { calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified,  } from "./calculations/data-calculation.js";
+import { validateData, property1Name, property2Name} from './validation/data_validation.js'
+import { getCalculatedDataSet_x_y, calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified,  } from "./calculations/data-calculation.js";
 
 
 
@@ -98,6 +98,8 @@ export class Chart  {
         
 
         
+        this.dataSet_x_y = getCalculatedDataSet_x_y(this.dataSet_x_y)
+        console.log(this.dataSet_x_y)
         
         this.setWidthHeight()
         this.drawInnerRect()
