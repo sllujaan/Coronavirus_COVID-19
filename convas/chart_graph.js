@@ -1,5 +1,6 @@
 
 import {validateData} from './validation/data_validation.js'
+import { getCalculatedData } from "./calculations/data-calculation.js";
 
 
 
