@@ -1,6 +1,6 @@
 
 import {validateData} from './validation/data_validation.js'
-import { getCalculatedData } from "./calculations/data-calculation.js";
+import { getCalculatedData_X, getCalculatedData_Y } from "./calculations/data-calculation.js";
 
 
 
@@ -60,6 +60,9 @@ export class Chart  {
         //if(Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) throw Error("two values are required in a json Object")
 
         validateData(ctx, label_x, label_y, dataSet_x_y)
+        getCalculatedData_X()
+        getCalculatedData_Y()
+
 
         console.log(dataSet_x_y)
         this.dataSet_x_y = dataSet_x_y

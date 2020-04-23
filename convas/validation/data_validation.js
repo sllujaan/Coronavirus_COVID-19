@@ -11,6 +11,9 @@ export function validateData(ctx, label_x, label_y, dataSet_x_y) {
 }
 
 
+export var data_x = []
+export var data_y = []
+
 
 
 export function validateContext(ctx) {
@@ -59,12 +62,10 @@ export function validateArray(dataSet_x_y) {
     
 }
 
-
+export var property1Name
+export var property2Name
 
 export function validateArrayOfJsons(dataSet_x_y) {
-
-    var property1Name
-    var property2Name
 
     console.log(Object.keys(dataSet_x_y[0])[0])
 
@@ -80,28 +81,11 @@ export function validateArrayOfJsons(dataSet_x_y) {
         if(Object.keys(obj)[0] !== property1Name || Object.keys(obj)[1] !== property2Name) throw Error("All Jsons prropertes names must match with first json object properties.")
 
         if(typeof obj[property1Name] !== 'number' || typeof obj[property2Name]  !== 'number') throw Error("json ojects properties must have numeric values.")
+
+        data_x.push(obj[property1Name])
+        data_y.push(obj[property2Name])
     })
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -124,3 +108,4 @@ export function validateArray_Y(dataSet_y) {
     })
 
 }
+
