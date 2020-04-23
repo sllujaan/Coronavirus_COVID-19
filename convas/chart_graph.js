@@ -1,6 +1,6 @@
 
 import {validateData} from './validation/data_validation.js'
-import { getCalculatedData_X, getCalculatedData_Y } from "./calculations/data-calculation.js";
+import { calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified } from "./calculations/data-calculation.js";
 
 
 
@@ -60,15 +60,16 @@ export class Chart  {
         //if(Object.keys(dataSet_x_y).length < 2 || Object.keys(dataSet_x_y).length > 2) throw Error("two values are required in a json Object")
 
         validateData(ctx, label_x, label_y, dataSet_x_y)
-        getCalculatedData_X()
-        getCalculatedData_Y()
+        calculatedData_X()
+        calculatedData_Y()
+
 
 
         console.log(dataSet_x_y)
         this.dataSet_x_y = dataSet_x_y
 
         
-
+    /*
         var x_name = Object.keys(dataSet_x_y[0])[0]
         var y_name = Object.keys(dataSet_x_y[0])[1]
         var x_arr = []
@@ -77,8 +78,10 @@ export class Chart  {
         dataSet_x_y.forEach(data => {
             x_arr.push(data[x_name])
             y_arr.push(data[y_name])
-        })
+        })*/
 
+        var x_name = Object.keys(dataSet_x_y[0])[0]
+        var y_name = Object.keys(dataSet_x_y[0])[1]
 
         this.ctx = ctx
         this.label_x = (label_x) ? (label_x) : (x_name)
@@ -87,8 +90,10 @@ export class Chart  {
         //this.data_y = data_y
 
         //console.log(x_arr)
-        this.data_x = x_arr
-        this.data_y = y_arr
+        console.log(data_x_verified)
+        console.log(data_y_verified)
+        this.data_x = data_x_verified
+        this.data_y = data_y_verified
         this.canvas = ctx.canvas
         
 
@@ -319,11 +324,11 @@ export class Chart  {
     }
     getCalculatedDataX() {
 
-        if(this.data_y.length <= 4) return this.data_y
+        if(this.data_x.length <= 4) return this.data_x
 
-        if(this.data_y.length > 4) {
+        if(this.data_x.length > 4) {
             console.log("more")
-            var index_diff = this.data_y.length / 4
+            var index_diff = this.data_x.length / 4
             console.log(index_diff)
             
             if(index_diff < 1.75) {
