@@ -369,6 +369,11 @@ export class Chart  {
         this.ctx.beginPath()
         this.setCurrentWallToNext()
         this.setCurrentRoofToNext()
+
+        console.warn(this.current_wall_width, this.current_wall_val)
+        console.warn(this.current_roof_height, this.current_roof_val)
+        
+
         this.x_drawLineCoordinates_prev = this.x_corrdinate_0
         this.y_drawLineCoordinates_prev = this.y_corrdinate_0
 
@@ -563,7 +568,12 @@ export class Chart  {
 
     //setting  Next Wall---------------------
     setCurrentWallToNext() {
-        if(this.current_wall_width === this.x_wall_1_width) {
+        if(!this.current_wall_width) {
+            this.current_wall_width = this.x_wall_1_width
+            this.current_wall_val = this.x_wall_1_val
+        }
+
+        else if(this.current_wall_width === this.x_wall_1_width) {
             this.current_wall_width = this.x_wall_2_width
             this.current_wall_val = this.x_wall_2_val
         }
@@ -578,29 +588,31 @@ export class Chart  {
             this.current_wall_val = this.x_wall_4_val
         }
 
-        else if(!this.current_wall_width) {
-            this.current_wall_width = this.x_wall_1_width
-            this.current_wall_val = this.x_wall_1_val
-        }
+        
 
     }
     //-------------------------------------
 
     //setting Next roof or prev-------------------------------------
     setCurrentRoofToNext() {
-        if(this.current_roof_height === this.y_roof_1_height) {
+        console.warn(this.current_roof_height)
+
+        if(!this.current_roof_height) {
+            this.current_roof_height = this.y_roof_1_height
+            this.current_roof_val = this.y_roof_1_val
+            console.warn("roof height was undefined has been settled")
+        }
+
+        else if(this.current_roof_height === this.y_roof_1_height) {
             this.current_roof_height = this.y_roof_2_height
             this.current_roof_val = this.y_roof_2_val
+            console.warn("1111111")
         }
 
         else if(this.current_roof_height === this.y_roof_2_height) {
             this.current_roof_height = this.y_roof_3_height
             this.current_roof_val = this.y_roof_3_val
-        }
-
-        else if(!this.current_roof_height) {
-            this.current_roof_height = this.y_roof_1_height
-            this.current_roof_val = this.y_roof_1_val
+            console.warn("2222222222222")
         }
     }
 
