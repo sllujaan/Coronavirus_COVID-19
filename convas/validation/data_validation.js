@@ -62,11 +62,23 @@ export function validateArray(dataSet_x_y) {
 
 export function validateArrayOfJsons(dataSet_x_y) {
 
+    var property1Name
+    var property2Name
+
+    console.log(Object.keys(dataSet_x_y[0])[0])
+
     dataSet_x_y.forEach(obj => {
         console.log(Object.keys(obj).length)
         if(Object.keys(obj).length !== 2) throw Error("Each json oject must have only two properties.")
-        console.log(Object.keys(obj))    
-        if(typeof obj[0] !== 'number' || typeof obj[1] !== 'number') throw Error("json ojects properties must have numeric values.")
+
+        if(!property1Name && !property2Name) {
+            property1Name = Object.keys(dataSet_x_y[0])[0]
+            property2Name = Object.keys(dataSet_x_y[0])[1]
+        }
+
+        if(Object.keys(obj)[0] !== property1Name || Object.keys(obj)[1] !== property2Name) throw Error("All Jsons prropertes names must match with first json object properties.")
+
+        if(typeof obj[property1Name] !== 'number' || typeof obj[property2Name]  !== 'number') throw Error("json ojects properties must have numeric values.")
     })
 }
 
