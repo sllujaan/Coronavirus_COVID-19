@@ -13,6 +13,8 @@ export function validateData(ctx, label_x, label_y, dataSet_x_y) {
 
 export var data_x = []
 export var data_y = []
+export var property1Name
+export var property2Name
 
 
 
@@ -62,8 +64,7 @@ export function validateArray(dataSet_x_y) {
     
 }
 
-export var property1Name
-export var property2Name
+
 
 export function validateArrayOfJsons(dataSet_x_y) {
 

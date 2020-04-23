@@ -1,6 +1,6 @@
 
-import {validateData} from './validation/data_validation.js'
-import { calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified } from "./calculations/data-calculation.js";
+import {validateData, property1Name, property2Name} from './validation/data_validation.js'
+import { calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified,  } from "./calculations/data-calculation.js";
 
 
 
@@ -377,11 +377,11 @@ export class Chart  {
         this.x_drawLineCoordinates_prev = this.x_corrdinate_0
         this.y_drawLineCoordinates_prev = this.y_corrdinate_0
 
-        this.data_x.forEach((x_val, index) => {
+        this.dataSet_x_y.forEach((obj, index) => {
 
             //compute line--------------------------------------
-            var x_val = this.data_x[index]
-            var y_val = this.data_y[index]
+            var x_val = obj[property1Name]
+            var y_val = obj[property2Name]
 
             console.log(x_val)
 
