@@ -1,5 +1,5 @@
 
-import {covid_19_data, sampleData} from './chart_data_api.js'
+import {covid_19_data, sampleData, genData} from './chart_data_api.js'
 import {Chart} from './chart_graph.js'
 
 
@@ -26,30 +26,34 @@ console.log(chart_height)
 
 
 try {
+
+    var myChart
+
+    genData.then(data => {
+        console.log(data)
+        myChart = new Chart(ctx_new, "", "", data)
+    })
+
     
-var data_x = [100, 200, 300]
-var data_y = [1000, 4000, 10000, 12000]
-var data = [{day:4, inf:2}, {day:3, inf:-1}, {day:2, inf:2}, {day:1, inf:2}]
-var myChart = new Chart(ctx_new, "", "", sampleData)
 
-var windowInnerWidth = window.innerWidth
+    var windowInnerWidth = window.innerWidth
 
-window.addEventListener('resize', e => {
-    console.log(e)
-    console.log(windowInnerWidth)
+    window.addEventListener('resize', e => {
+        console.log(e)
+        console.log(windowInnerWidth)
 
-    var current_innerWidth = e.target.innerWidth
-    var diff = current_innerWidth - windowInnerWidth
+        var current_innerWidth = e.target.innerWidth
+        var diff = current_innerWidth - windowInnerWidth
 
-    console.log(diff)
+        console.log(diff)
 
-    if(diff > 10 || diff < -10) {
-        console.log("updated Chart...")
-        myChart = myChart.update()
-        
-        windowInnerWidth = e.target.innerWidth
-    }
-})
+        if(diff > 10 || diff < -10) {
+            console.log("updated Chart...")
+            myChart = myChart.update()
+            
+            windowInnerWidth = e.target.innerWidth
+        }
+    })
 
 }
 catch (err) {
