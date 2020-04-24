@@ -1,5 +1,5 @@
 
-import {covid_19_data} from './chart_data_api.js'
+import {covid_19_data, sampleData} from './chart_data_api.js'
 import {Chart} from './chart_graph.js'
 
 
@@ -29,8 +29,8 @@ try {
     
 var data_x = [100, 200, 300]
 var data_y = [1000, 4000, 10000, 12000]
-
-var myChart = new Chart(ctx_new, "", "", [{day:4, inf:2}, {day:3, inf:2}, {day:2, inf:2}, {day:1, inf:2}])
+var data = [{day:4, inf:2}, {day:3, inf:-1}, {day:2, inf:2}, {day:1, inf:2}]
+var myChart = new Chart(ctx_new, "", "", sampleData)
 
 var windowInnerWidth = window.innerWidth
 

@@ -11,7 +11,18 @@ export function calculatedData_X () {
     uniqueSet.sort()
     data_x_verified = uniqueSet
 
-    if(data_x_verified.length < 4) throw Error("At least 4 unique values must be presented for x axis data")
+    var nagativeNum = []
+    var positiveNum = []
+    uniqueSet.forEach(num => {
+        (num < 1) ? (nagativeNum.push(num)) : (positiveNum.push(num))
+    })
+
+    var diff_positive_nagative = data_x_verified.length - nagativeNum.length
+  
+    if(data_x_verified.length < 4 || diff_positive_nagative < 4) throw Error("At least 4 unique positive values must be presented for x axis data")
+
+    data_x_verified = positiveNum
+
 }
 
 export function calculatedData_Y () {
@@ -20,6 +31,20 @@ export function calculatedData_Y () {
     var uniqueSet = [...new Set(data_y)]
     uniqueSet.sort()
     data_y_verified = uniqueSet
+
+    var nagativeNum = []
+    var positiveNum = []
+    uniqueSet.forEach(num => {
+        (num < 1) ? (nagativeNum.push(num)) : (positiveNum.push(num))
+    })
+    
+    var diff_positive_nagative = data_y_verified.length - nagativeNum.length
+
+    console.warn(diff_positive_nagative)
+
+    if(diff_positive_nagative <= 0) throw Error("At least 1 unique positive value must be presented for y axis data")
+
+    data_y_verified = positiveNum
 }
 
 export function getCalculatedDataSet_x_y (dataSet_x_y) {

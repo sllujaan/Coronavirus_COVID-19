@@ -269,7 +269,10 @@ export class Chart  {
                 "this.x_drawLineCoordinates_prev = "+this.x_drawLineCoordinates_prev,
                 "+this.y_drawLineCoordinates_prev = "+this.y_drawLineCoordinates_prev,
                 "computed_width = "+computed_width,
-                "computed_height = "+computed_height
+                "computed_height = "+computed_height,
+                "this.x_corrdinate_0 = "+this.x_corrdinate_0,
+                "this.x_corrdinate_0 = "+this.y_corrdinate_0
+
             ])
         })
 
@@ -303,7 +306,7 @@ export class Chart  {
     //calculating height and width for x hidden values----------------------
     getComputedWidth (x_val) {
         console.log("---------------------------generating width------------------------------------------")
-
+        console.log(x_val, this.current_wall_val)
         if(x_val === this.current_wall_val) return this.current_wall_width
 
         var maxIntervals = 8
@@ -312,7 +315,7 @@ export class Chart  {
 
         while(!working_origin) {
 
-            if(x_val < this.current_wall_val) {
+            if(x_val <= this.current_wall_val) {
                 console.log("working origin. x")
                 working_origin = true
                 return this.calculateWidth(x_val)
@@ -355,7 +358,7 @@ export class Chart  {
 
     getComputedHeight (y_val) {
         console.log("<<<<<<<<<<<<<<<<<<<<<<generating height>>>>>>>>>>>>>>>>>")
-
+        console.warn(y_val)
         if(y_val === this.current_roof_val) return this.current_roof_height
 
         var maxIntervals = 5
@@ -364,7 +367,7 @@ export class Chart  {
 
         while(!working_origin) {
             
-            if(y_val > this.getLowerRoofValue() && y_val < this.current_roof_val) {
+            if(y_val >= this.getLowerRoofValue() && y_val <= this.current_roof_val) {
                 working_origin = true
                 console.log("working origin.")
                 return this.calculateHeight(y_val)                

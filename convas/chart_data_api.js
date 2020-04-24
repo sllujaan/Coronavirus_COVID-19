@@ -33,4 +33,9 @@ data.forEach((obj, index) => {
     }
 })
 
-
+export var sampleData = [
+    {day:1, inf:0},
+    {day:2, inf:1},
+    {day:3, inf:2},
+    {day:4, inf:4}
+]
