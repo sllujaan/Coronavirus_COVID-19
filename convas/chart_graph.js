@@ -10,6 +10,7 @@ export class Chart  {
     data_y
     canvas
     dataSet_x_y
+    originalDataSet_x_y
     
     innerRectOffset_percentage = .2
     x_corrdinate_0
@@ -148,6 +149,7 @@ export class Chart  {
     }
 
     getCalculatedDataY() {
+        console.log(this.data_y)
         if(this.data_y.length <= 3) return this.data_y
 
         if(this.data_y.length > 3) {
@@ -219,6 +221,7 @@ export class Chart  {
 
         if(this.data_x.length > 4) {
             var index_diff = this.data_x.length / 4
+            console.log(index_diff)
 
             if(index_diff < 1.75) {
                 return [this.data_x[0], this.data_x[1], this.data_x[this.data_x.length-2], this.data_x[this.data_x.length-1]]
@@ -228,6 +231,7 @@ export class Chart  {
                 return [this.data_x[0], this.data_x[2], this.data_x[this.data_x.length-3], this.data_x[this.data_x.length-1]]
             }
 
+            index_diff = Math.floor(index_diff)
             return [this.data_x[0], this.data_x[index_diff], this.data_x[(this.data_x.length-1) - (index_diff)], this.data_x[this.data_x.length-1]]
         }
     }
@@ -271,7 +275,7 @@ export class Chart  {
                 "computed_width = "+computed_width,
                 "computed_height = "+computed_height,
                 "this.x_corrdinate_0 = "+this.x_corrdinate_0,
-                "this.x_corrdinate_0 = "+this.y_corrdinate_0
+                "this.y_corrdinate_0 = "+this.y_corrdinate_0
 
             ])
         })
@@ -283,20 +287,23 @@ export class Chart  {
     drawLineToCoordinates(computed_width, computed_height) {
         this.ctx.moveTo(this.x_drawLineCoordinates_prev, this.y_drawLineCoordinates_prev)
         this.ctx.lineWidth = 2
-        this.ctx.strokeStyle = "skyblue"
+        this.ctx.strokeStyle = "#4287f5"
         this.ctx.lineCap = 'round'
         this.ctx.lineTo(computed_width, computed_height)
         this.ctx.stroke()
         
-        var radius = 5
-        this.ctx.save()
-        this.ctx.moveTo(computed_width + radius, computed_height)
-        this.ctx.arc(computed_width, computed_height, radius, 0, 2*Math.PI)
-        this.ctx.strokeStyle = "#4287f5"
-        this.ctx.fillStyle = "skyblue"
-        this.ctx.fill()
-        this.ctx.stroke()
-        this.ctx.restore()
+        if(this.dataSet_x_y.length <= 15) { 
+        
+            var radius = 5
+            this.ctx.save()
+            this.ctx.moveTo(computed_width + radius, computed_height)
+            this.ctx.arc(computed_width, computed_height, radius, 0, 2*Math.PI)
+            this.ctx.strokeStyle = "#4287f5"
+            this.ctx.fillStyle = "skyblue"
+            this.ctx.fill()
+            this.ctx.stroke()
+            this.ctx.restore()
+        }
 
         this.x_drawLineCoordinates_prev = computed_width
         this.y_drawLineCoordinates_prev = computed_height
@@ -413,7 +420,7 @@ export class Chart  {
     //updating function----------------------------------------------
     update() {
         console.log(this.dataSet_x_y)
-        return new Chart(this.ctx, "", 0, "", 0, this.dataSet_x_y)
+        return new Chart(this.ctx, "", "", this.dataSet_x_y)
     }
     //---------------------------------------------------
 

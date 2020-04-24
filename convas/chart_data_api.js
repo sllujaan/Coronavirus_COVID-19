@@ -34,7 +34,6 @@ data.forEach((obj, index) => {
 })
 
 
-
 export var sampleData = [
     {day:1, inf:1},
     {day:2, inf:1},
@@ -74,7 +73,7 @@ console.log(generateSampleData())
 export var genData = new Promise((resolve, reject) => {
 
     var sampleData = []
-    for(var i=1; i<100; i++) {
+    for(var i=1; i<1000; i++) {
         sampleData.push({day:i, inf:(i * 2)})
     }
     resolve(sampleData)
