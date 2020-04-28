@@ -6,12 +6,13 @@ import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, char
 var covid_19_url = 'https://covid19.mathdro.id/api'
 
 
-export var covid_data = async (country) => {
+export var covid_data = async (country, date) => {
 
-    var url
+    var url  = covid_19_url
 
-    if(!country) url = covid_19_url
+    //if(!country) url = covid_19_url
     if(country) url = covid_19_url+"/confirmed"
+    if(date) url = covid_19_url+"/daily/"+date
 
 
     console.log("feching url...:: ", url)
@@ -104,7 +105,6 @@ var setAll = (data, country) => {
         setRecovered(getRecovered(data))
         setDeaths(getDeaths(data))
     }
-    
 }
 
 
@@ -120,6 +120,9 @@ export var showData = (country) => {
         .then(data => {
             console.log(getCountyHistory(data, country))
             //drawing Cart----------------
+            
+            
+
             var countryData = getCountyHistory(data, country)
             //drawChart(ctx_new, "", "", countryData)
             //-----------------------
@@ -192,6 +195,58 @@ function getCountyHistory(data, country) {
         })
         resolve(countryArray)
     })
+    return promise
+}
+
+
+
+function getDailyArray(country) {
+    var today = new Date()
+    var dd = today.getDate()
+    dd = 1
+    var mm = today.getMonth()+1
+    var yyyy = today.getFullYear()
+    var todayStr = mm+'-'+dd+'-'+yyyy
+
+    var prevMonth1 = ((mm > 1) ? (mm-1) : (mm=12))
+    var prevMonth2 = ((mm > 2) ? (mm-2) : (mm=12))
+    var prevMonth3 = ((mm > 3) ? (mm-3) : (mm=12))
+
+
+    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
+    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
+    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
+    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
+
+    /*
+    getDaily(country, todayStr)
+    console.log(getDaily(country, "2-15-2020"))
+    console.log(getDaily(country, "3-1-2020"))
+    console.log(getDaily(country, "4-1-2020"))
+    */
+}
+
+
+
+function getDaily(country, date) {
+    var promise = new Promise((resolve, reject) => {
+         
+        covid_data("", date)
+        .then(data => {
+            data.forEach(obj => {
+                if(obj.countryRegion === country) {
+                    resolve(obj)
+                }
+            })
+            reject("No Data Found for "+country)
+        })
+        .catch(err => {
+            console.error(err)
+            reject(err)
+        })
+        
+    })
+
     return promise
 }
 
