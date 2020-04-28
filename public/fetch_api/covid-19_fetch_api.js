@@ -121,7 +121,7 @@ export var showData = (country) => {
             console.log(getCountyHistory(data, country))
             //drawing Cart----------------
             
-            getDailyArray(country)
+           
 
             var countryData = getCountyHistory(data, country)
             //drawChart(ctx_new, "", "", countryData)
