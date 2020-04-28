@@ -121,7 +121,7 @@ export var showData = (country) => {
             console.log(getCountyHistory(data, country))
             //drawing Cart----------------
             
-            
+            getDailyArray(country)
 
             var countryData = getCountyHistory(data, country)
             //drawChart(ctx_new, "", "", countryData)
@@ -206,24 +206,29 @@ function getDailyArray(country) {
     dd = 1
     var mm = today.getMonth()+1
     var yyyy = today.getFullYear()
+    
+    
+    var prevMonth1 = ((mm > 1) ? (mm-1) : (12))
+    var prevMonth2 = ((mm > 2) ? (mm-2) : (prevMonth1-1))
+    var prevMonth3 = ((mm > 3) ? (mm-3) : (prevMonth2-1))
+
     var todayStr = mm+'-'+dd+'-'+yyyy
+    var prevMonth1Str = prevMonth1+'-'+dd+'-'+yyyy
+    var prevMonth2Str = prevMonth2+'-'+dd+'-'+yyyy
+    var prevMonth3Str = prevMonth3+'-'+dd+'-'+yyyy
 
-    var prevMonth1 = ((mm > 1) ? (mm-1) : (mm=12))
-    var prevMonth2 = ((mm > 2) ? (mm-2) : (mm=12))
-    var prevMonth3 = ((mm > 3) ? (mm-3) : (mm=12))
 
 
-    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
-    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
-    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
-    var prevMonth1Str = ((mm > 2) ? (mm-1) : (mm=12))+'-'+dd+'-'+yyyy
 
-    /*
-    getDaily(country, todayStr)
-    console.log(getDaily(country, "2-15-2020"))
-    console.log(getDaily(country, "3-1-2020"))
-    console.log(getDaily(country, "4-1-2020"))
-    */
+    getDaily(country, prevMonth1Str)
+    .then(data => {
+        console.log(data)
+        dailyArr.push({lastUpdate:data.lastUpdate, confirmed:data.confirmed})
+    })
+    .catch(err => {
+        console.error(err)
+    })
+    
 }
 
 
