@@ -29,6 +29,7 @@ try {
 
     var myChart
 
+
     genData.then(data => {
         console.log(data)
         myChart = new Chart(ctx_new, "", "", data)
@@ -37,16 +38,9 @@ try {
     
 
     var windowInnerWidth = window.innerWidth
-
     window.addEventListener('resize', e => {
-        console.log(e)
-        console.log(windowInnerWidth)
-
         var current_innerWidth = e.target.innerWidth
         var diff = current_innerWidth - windowInnerWidth
-
-        console.log(diff)
-
         if(diff > 10 || diff < -10) {
             console.log("updated Chart...")
             myChart = myChart.update()

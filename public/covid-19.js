@@ -13,6 +13,8 @@ var body = document.getElementsByTagName("body")[0]
 export var confirmed = document.getElementsByClassName("conformed")[0].getElementsByClassName("value")[0]
 export var recovered = document.getElementsByClassName("recovered")[0].getElementsByClassName("value")[0]
 export var deaths = document.getElementsByClassName("deaths")[0].getElementsByClassName("value")[0]
+export var chart_new = document.getElementById("chart-new")
+export var ctx_new = chart_new.getContext('2d')
 
 
 var country = document.getElementById("countries-covid-19")
@@ -66,11 +68,43 @@ function makeSelectOption(arr) {
 
 
 
+export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
+    try {
+    
+        var myChart = new Chart(ctx_new, label_x, label_y, covid_19_data)
+        
+        var windowInnerWidth = window.innerWidth
+        
+        window.addEventListener('resize', e => {
+            console.log(e)
+            console.log(windowInnerWidth)
+        
+            var current_innerWidth = e.target.innerWidth
+            var diff = current_innerWidth - windowInnerWidth
+        
+            console.log(diff)
+        
+            if(diff > 10 || diff < -10) {
+                console.log("updated Chart...")
+                myChart = myChart.update()
+                
+                windowInnerWidth = e.target.innerWidth
+            }
+        })
+        
+        }
+        catch (err) {
+            console.error(err)
+        }
+}
+
+
 
 
 
 
 //chart content---------------------
+/*
 var chart_new = document.getElementById("chart-new")
 var ctx_new = chart_new.getContext('2d')
 
@@ -78,7 +112,7 @@ try {
     
 
     
-    var myChart = new Chart(ctx_new, "", 0, "", 0, covid_19_data)
+    var myChart = new Chart(ctx_new, "", "", covid_19_data)
     
     var windowInnerWidth = window.innerWidth
     
@@ -105,7 +139,7 @@ try {
     }
 
 
-
+*/
 //-------------------------
 
 

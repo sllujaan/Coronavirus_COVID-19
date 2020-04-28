@@ -1,6 +1,6 @@
 
 
-import {showNetworkError, confirmed, recovered, deaths, removeNetworkError} from '../covid-19.js'
+import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new, drawChart} from '../covid-19.js'
 
 
 var covid_19_url = 'https://covid19.mathdro.id/api'
@@ -118,6 +118,12 @@ export var showData = (country) => {
         console.log("country ====:: ", country)
         covid_data(country)
         .then(data => {
+            console.log(getCountyHistory(data, country))
+            //drawing Cart----------------
+            var countryData = getCountyHistory(data, country)
+            //drawChart(ctx_new, "", "", countryData)
+            //-----------------------
+
             console.log(data)
             setAll(data, country)
             //console.log(getConfirmed(data, 'France'))
@@ -169,6 +175,24 @@ function cancelLoading () {
     confirmed.innerHTML = `---`
     recovered.innerHTML = `---`
     deaths.innerHTML = `---`
+}
+
+
+
+
+function getCountyHistory(data, country) {
+    
+    var promise = new Promise((resolve, reject) => {
+        var countryArray = []
+        data.forEach(obj => {
+            if(obj.countryRegion === country) {
+                
+                countryArray.push({lastUpdate:obj.lastUpdate, confirmed:obj.confirmed})
+            }
+        })
+        resolve(countryArray)
+    })
+    return promise
 }
 
 
