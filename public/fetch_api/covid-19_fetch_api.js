@@ -243,6 +243,10 @@ getCountryArray("US")
     getCountryArrayFromPromise(dataArr, "US")
     .then(data => {
         console.log(data)
+        getAverage(data)
+        .then(avg => {
+            console.log(avg)
+        })
     })
 })
 
@@ -261,8 +265,22 @@ function getCountryArrayFromPromise(dataArr, country) {
         reject("ERRORR::::::::")
 
     })
-    
+}
 
+
+function getAverage(data) {
+    return new Promise((resolve, reject) => {
+        console.log(data.length)
+        var confirmedSum = 0
+        data.forEach((obj, index) => {
+            confirmedSum = obj.confirmed
+            if(index === (data.length-1)) {
+                var avg = (confirmedSum / data.length)
+                resolve({average:avg})
+            } 
+        })
+        reject("ERRORR::::::::")
+    })
 }
 
 
