@@ -118,7 +118,13 @@ export function getprevDays() {
     return [UTC1, UTC15, UTC30, UTC45]
 }
 
-var prevDays = getprevDays()
-console.warn(prevDays)
 
+
+
+/*
+var prevDays = getprevDays()
+
+var day1 = new Date(prevDays[0])
+console.log(day1.getDate(), day1.getMonth(), day1.getFullYear())
+*/
 

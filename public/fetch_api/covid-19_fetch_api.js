@@ -1,6 +1,7 @@
 
 
 import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new, drawChart} from '../covid-19.js'
+import { getprevDays } from '../convas/chart_data_api.js'
 
 
 var covid_19_url = 'https://covid19.mathdro.id/api'
@@ -254,6 +255,98 @@ function getDaily(country, date) {
 
     return promise
 }
+
+
+
+
+
+
+
+var prevDays = getprevDays()
+console.log(prevDays)
+
+var day1 = new Date(prevDays[0])
+var day15 = new Date(prevDays[1])
+var day30 = new Date(prevDays[2])
+var day45 = new Date(prevDays[3])
+
+var day1Str = day1.getMonth()+"-"+day1.getDate()+"-"+day1.getFullYear()
+var day15Str = day15.getMonth()+"-"+day15.getDate()+"-"+day15.getFullYear()
+var day30Str = day30.getMonth()+"-"+day30.getDate()+"-"+day30.getFullYear()
+var day45Str = day45.getMonth()+"-"+day45.getDate()+"-"+day45.getFullYear()
+
+console.log(day1Str, day15Str, day30Str, day45Str)
+
+var urls = [day1Str, day15Str, day30Str, day45Str]
+//-------------------------------------
+
+/*
+covid_data("", day1Str)
+.then(data => {
+    return data
+})
+.catch(err => {
+    console.error(err)
+})
+//-------------------------------------
+
+covid_data("", day15Str)
+.then(data => {
+    return data
+})
+.catch(err => {
+    console.error(err)
+})
+//-------------------------------------
+
+covid_data("", day30Str)
+.then(data => {
+    return data
+})
+.catch(err => {
+    console.error(err)
+}) 
+//-------------------------------------
+
+covid_data("", day45Str)
+.then(data => {
+    return data
+})
+.catch(err => {
+    console.error(err)
+}) 
+//-------------------------------------
+
+*/
+
+var promises = Promise.all(urls.map(url => {
+    return covid_data("", url)
+    .then(data => {
+        return data
+    })
+    .catch(err => {
+        console.error(err)
+    }) 
+}))
+
+
+promises.then(dataArr => {
+    console.log(dataArr)
+})
+
+
+
+//console.log(day1.getDate(), day1.getMonth(), day1.getFullYear())
+
+
+
+
+
+
+
+
+
+
 
 
 /*
