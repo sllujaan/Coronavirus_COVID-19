@@ -262,77 +262,108 @@ function getDaily(country, date) {
 
 
 
-var prevDays = getprevDays()
-console.log(prevDays)
+function getCountryArray(country) {
+    var prevDays = getprevDays()
+    console.log(prevDays)
+    
+    var day1 = new Date(prevDays[0])
+    var day15 = new Date(prevDays[1])
+    var day30 = new Date(prevDays[2])
+    var day45 = new Date(prevDays[3])
+    
+    var day1Str = day1.getMonth()+"-"+day1.getDate()+"-"+day1.getFullYear()
+    var day15Str = day15.getMonth()+"-"+day15.getDate()+"-"+day15.getFullYear()
+    var day30Str = day30.getMonth()+"-"+day30.getDate()+"-"+day30.getFullYear()
+    var day45Str = day45.getMonth()+"-"+day45.getDate()+"-"+day45.getFullYear()
+    
+    console.log(day1Str, day15Str, day30Str, day45Str)
+    
+    var urls = [day1Str, day15Str, day30Str, day45Str]
+    //-------------------------------------
+    
+    
+    var promises = Promise.all(urls.map(url => {
+        return covid_data("", url)
+        .then(data => {
+            return data
+        })
+        .catch(err => {
+            console.error(err)
+        }) 
+    }))
 
-var day1 = new Date(prevDays[0])
-var day15 = new Date(prevDays[1])
-var day30 = new Date(prevDays[2])
-var day45 = new Date(prevDays[3])
+    return promises
+    
+    
 
-var day1Str = day1.getMonth()+"-"+day1.getDate()+"-"+day1.getFullYear()
-var day15Str = day15.getMonth()+"-"+day15.getDate()+"-"+day15.getFullYear()
-var day30Str = day30.getMonth()+"-"+day30.getDate()+"-"+day30.getFullYear()
-var day45Str = day45.getMonth()+"-"+day45.getDate()+"-"+day45.getFullYear()
+}
 
-console.log(day1Str, day15Str, day30Str, day45Str)
 
-var urls = [day1Str, day15Str, day30Str, day45Str]
-//-------------------------------------
+function fetchCountryArray(dataArr, country) {
+
+    
+    dataArr.forEach(objArr => {
+        objArr.forEach(obj => {
+            //return obj.find(country => obj.countryRegion === country)
+            //console.log(obj)
+            if (obj.countryRegion === country) return obj
+            return console.log(obj.json())
+        })
+    })
+
+}
+
+var objArr = []
+
+
+getCountryArray("US")
+.then(dataArr => {
+    console.log(dataArr)
+    dataArr.forEach(objArr => {
+        objArr.forEach(obj => {
+            //return obj.find(country => obj.countryRegion === country)
+            //console.log(obj)
+            if (obj.countryRegion === country) {
+                objArr.push(obj)
+            } 
+        })
+    })
+
+})
+
+function getCountryArrayFromPromis() {
+    return new Promise((resolve, reject) => {
+        dataArr.forEach(objArr => {
+            objArr.forEach(obj => {
+                //return obj.find(country => obj.countryRegion === country)
+                //console.log(obj)
+                if (obj.countryRegion === country) {
+                    objArr.push(obj)
+                } 
+            })
+        })   
+    })
+    
+
+}
+
+
+
+
+console.log(objArr)
+
+
 
 /*
-covid_data("", day1Str)
-.then(data => {
-    return data
-})
-.catch(err => {
-    console.error(err)
-})
-//-------------------------------------
 
-covid_data("", day15Str)
-.then(data => {
-    return data
-})
-.catch(err => {
-    console.error(err)
-})
-//-------------------------------------
-
-covid_data("", day30Str)
-.then(data => {
-    return data
-})
-.catch(err => {
-    console.error(err)
-}) 
-//-------------------------------------
-
-covid_data("", day45Str)
-.then(data => {
-    return data
-})
-.catch(err => {
-    console.error(err)
-}) 
-//-------------------------------------
-
+dataArr.forEach(objArr => {
+            objArr.forEach(obj => {
+                //return obj.find(country => obj.countryRegion === country)
+                //console.log(obj)
+                if (obj.countryRegion === country) return obj 
+            })
+        })
 */
-
-var promises = Promise.all(urls.map(url => {
-    return covid_data("", url)
-    .then(data => {
-        return data
-    })
-    .catch(err => {
-        console.error(err)
-    }) 
-}))
-
-
-promises.then(dataArr => {
-    console.log(dataArr)
-})
 
 
 
