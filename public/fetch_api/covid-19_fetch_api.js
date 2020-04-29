@@ -272,17 +272,22 @@ function getAverage(data) {
     return new Promise((resolve, reject) => {
         console.log(data.length)
         var confirmedSum = 0
-        data.forEach((obj, index) => {
-            confirmedSum = obj.confirmed
-            if(index === (data.length-1)) {
-                var avg = (confirmedSum / data.length)
-                resolve({average:avg})
-            } 
-        })
+        
+        for(var i=1; i<=100; i++) {
+
+            var randomIndex = Math.floor(Math.random()*data.length)
+            confirmedSum += parseInt((data[randomIndex].confirmed))
+            console.log(randomIndex, (data[randomIndex].confirmed), confirmedSum)
+
+            if(i === 100) {
+                var avg = confirmedSum / 100
+                resolve({averge:avg})
+            }
+        }
+
         reject("ERRORR::::::::")
     })
 }
-
 
 
 
