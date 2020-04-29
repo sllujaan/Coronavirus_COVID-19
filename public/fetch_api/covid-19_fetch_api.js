@@ -299,6 +299,7 @@ function getCountryArray(country) {
 
 getCountryArray("US")
 .then(dataArr => {
+    console.log(dataArr)
     getCountryArrayFromPromise(dataArr, "US")
     .then(data => {
         console.log(data)
@@ -306,13 +307,14 @@ getCountryArray("US")
 })
 
 function getCountryArrayFromPromise(dataArr, country) {
-    var arr = []
+    
     return new Promise((resolve, reject) => {
-        
+        var arr = []
         dataArr.forEach((objArr, index) => {
             objArr.forEach(obj => {
                 if (obj.countryRegion === country) arr.push(obj)
             })
+            console.warn(index, dataArr.length)
             if(index === (dataArr.length-1)) resolve(arr)
         })
         
