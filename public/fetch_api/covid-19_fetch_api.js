@@ -201,66 +201,6 @@ function getCountyHistory(data, country) {
 
 
 
-function getDailyArray(country) {
-    var today = new Date()
-    var dd = today.getDate()
-    dd = 1
-    var mm = today.getMonth()+1
-    var yyyy = today.getFullYear()
-    
-    
-    var prevMonth1 = ((mm > 1) ? (mm-1) : (12))
-    var prevMonth2 = ((mm > 2) ? (mm-2) : (prevMonth1-1))
-    var prevMonth3 = ((mm > 3) ? (mm-3) : (prevMonth2-1))
-
-    var todayStr = mm+'-'+dd+'-'+yyyy
-    var prevMonth1Str = prevMonth1+'-'+dd+'-'+yyyy
-    var prevMonth2Str = prevMonth2+'-'+dd+'-'+yyyy
-    var prevMonth3Str = prevMonth3+'-'+dd+'-'+yyyy
-
-
-
-
-    getDaily(country, prevMonth1Str)
-    .then(data => {
-        console.log(data)
-        dailyArr.push({lastUpdate:data.lastUpdate, confirmed:data.confirmed})
-    })
-    .catch(err => {
-        console.error(err)
-    })
-    
-}
-
-
-
-function getDaily(country, date) {
-    var promise = new Promise((resolve, reject) => {
-         
-        covid_data("", date)
-        .then(data => {
-            data.forEach(obj => {
-                if(obj.countryRegion === country) {
-                    resolve(obj)
-                }
-            })
-            reject("No Data Found for "+country)
-        })
-        .catch(err => {
-            console.error(err)
-            reject(err)
-        })
-        
-    })
-
-    return promise
-}
-
-
-
-
-
-
 
 function getCountryArray(country) {
     var prevDays = getprevDays()
@@ -324,6 +264,78 @@ function getCountryArrayFromPromise(dataArr, country) {
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+function getDailyArray(country) {
+    var today = new Date()
+    var dd = today.getDate()
+    dd = 1
+    var mm = today.getMonth()+1
+    var yyyy = today.getFullYear()
+    
+    
+    var prevMonth1 = ((mm > 1) ? (mm-1) : (12))
+    var prevMonth2 = ((mm > 2) ? (mm-2) : (prevMonth1-1))
+    var prevMonth3 = ((mm > 3) ? (mm-3) : (prevMonth2-1))
+
+    var todayStr = mm+'-'+dd+'-'+yyyy
+    var prevMonth1Str = prevMonth1+'-'+dd+'-'+yyyy
+    var prevMonth2Str = prevMonth2+'-'+dd+'-'+yyyy
+    var prevMonth3Str = prevMonth3+'-'+dd+'-'+yyyy
+
+
+
+
+    getDaily(country, prevMonth1Str)
+    .then(data => {
+        console.log(data)
+        dailyArr.push({lastUpdate:data.lastUpdate, confirmed:data.confirmed})
+    })
+    .catch(err => {
+        console.error(err)
+    })
+    
+}
+
+
+
+function getDaily(country, date) {
+    var promise = new Promise((resolve, reject) => {
+         
+        covid_data("", date)
+        .then(data => {
+            data.forEach(obj => {
+                if(obj.countryRegion === country) {
+                    resolve(obj)
+                }
+            })
+            reject("No Data Found for "+country)
+        })
+        .catch(err => {
+            console.error(err)
+            reject(err)
+        })
+        
+    })
+
+    return promise
+}
+
+*/
 
 
 
