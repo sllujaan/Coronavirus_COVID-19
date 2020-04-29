@@ -1,6 +1,6 @@
 
 import { validateData, property1Name, property2Name} from './validation/data_validation.js'
-import { getCalculatedDataSet_x_y, calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified,  } from "./calculations/data-calculation.js";
+import { getCalculatedDataSet_x_y, calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified, getPrevDate } from "./calculations/data-calculation.js";
 
 export class Chart  {   
     ctx
@@ -44,10 +44,12 @@ export class Chart  {
 
     windowInnerWidth
 
+    isDateData_x
+
 
 
     
-    constructor(ctx, label_x, label_y, dataSet_x_y) {
+    constructor(ctx, label_x, label_y, dataSet_x_y, isDateData_x) {
 
         validateData(ctx, label_x, label_y, dataSet_x_y)
         calculatedData_X()
@@ -76,6 +78,8 @@ export class Chart  {
         this.drawDataY()
         this.drawDataX()
         this.drawLine()
+
+        if(isDateData_x) this.isDateData_x = true
 
         //this.ctx.stroke()
     }

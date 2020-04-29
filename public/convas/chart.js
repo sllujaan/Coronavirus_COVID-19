@@ -32,7 +32,7 @@ try {
 
     genData.then(data => {
         console.log(data)
-        myChart = new Chart(ctx_new, "", "", data)
+        myChart = new Chart(ctx_new, "", "", data, true)
     })
 
     

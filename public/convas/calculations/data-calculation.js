@@ -81,6 +81,89 @@ export function getCalculatedDataSet_x_y (dataSet_x_y) {
 
 
 
+export function getCalculatedDate() {
+    var date = Date.now()
+    var today = new Date(date)
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1
+    var yyyy = today.getFullYear()
+
+}
+
+export function getPrevDate(date, prevDayNum) {
+    var today = new Date(date)
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1
+    var yyyy = today.getFullYear()
+
+    var prev_dd = dd
+    var prev_mm = mm
+    var prev_yyyy = yyyy
+
+    
+    for(var i=0; i<prevDayNum; i++) {
+        var tempMonth = prev_mm
+        if(prev_dd === 1 && prev_mm === 1) prev_yyyy = getPrevYear(prev_yyyy)
+        if(prev_dd === 1) prev_mm = getPrevMonth(prev_mm)
+        prev_dd = getPrevDay(prev_dd, prev_mm)
+    }
+
+    console.warn(prev_dd, prev_mm, prev_yyyy)
+    console.log(new Date(prev_mm+'-'+prev_dd+'-'+prev_yyyy))
+
+    return (prev_mm+'-'+prev_dd+'-'+prev_yyyy)
+
+
+}
+
+function getPrevDay(day, month) {
+    if(day > 1) {
+        return (day-1)
+    }
+    else{
+        if(month === 1) return 31
+        if(month === 2) return 31
+        if(month === 3) return 28
+        if(month === 4) return 31
+        if(month === 5) return 30
+        if(month === 6) return 31
+        if(month === 7) return 30
+        if(month === 8) return 31
+        if(month === 9) return 30
+        if(month === 10) return 31
+        if(month === 11) return 30
+        if(month === 12) return 31
+        
+    }
+}
+
+function getPrevMonth(month) {
+    
+    if(month > 1) {
+        return (month-1)
+    }
+    else{
+        return 12
+    }
+    
+}
+
+function getPrevYear(year) {
+    if(year > 1) {
+        return (year-1)
+    }
+    else{
+        return 12
+    }
+}
+
+/*
+for(var i=1; i<200; i++) {
+    getPrevDate("1-1-2020", i)
+}*/
+
+
+
 
 
 
