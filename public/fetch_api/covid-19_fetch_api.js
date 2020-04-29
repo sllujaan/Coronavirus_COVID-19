@@ -292,65 +292,37 @@ function getCountryArray(country) {
         }) 
     }))
 
-    return promises
-    
-    
+    return promises    
 
 }
-
-
-function fetchCountryArray(dataArr, country) {
-
-    
-    dataArr.forEach(objArr => {
-        objArr.forEach(obj => {
-            //return obj.find(country => obj.countryRegion === country)
-            //console.log(obj)
-            if (obj.countryRegion === country) return obj
-            return console.log(obj.json())
-        })
-    })
-
-}
-
-var objArr = []
 
 
 getCountryArray("US")
 .then(dataArr => {
-    console.log(dataArr)
-    dataArr.forEach(objArr => {
-        objArr.forEach(obj => {
-            //return obj.find(country => obj.countryRegion === country)
-            //console.log(obj)
-            if (obj.countryRegion === country) {
-                objArr.push(obj)
-            } 
-        })
+    getCountryArrayFromPromise(dataArr, "US")
+    .then(data => {
+        console.log(data)
     })
-
 })
 
-function getCountryArrayFromPromis() {
+function getCountryArrayFromPromise(dataArr, country) {
+    var arr = []
     return new Promise((resolve, reject) => {
-        dataArr.forEach(objArr => {
+        
+        dataArr.forEach((objArr, index) => {
             objArr.forEach(obj => {
-                //return obj.find(country => obj.countryRegion === country)
-                //console.log(obj)
-                if (obj.countryRegion === country) {
-                    objArr.push(obj)
-                } 
+                if (obj.countryRegion === country) arr.push(obj)
             })
-        })   
+            if(index === (dataArr.length-1)) resolve(arr)
+        })
+        
+        reject("ERRORR::::::::")
+
     })
     
 
 }
 
-
-
-
-console.log(objArr)
 
 
 
