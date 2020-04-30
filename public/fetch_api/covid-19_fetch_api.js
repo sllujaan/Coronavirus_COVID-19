@@ -1,6 +1,7 @@
 
 
-import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new, drawChart} from '../covid-19.js'
+import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new } from '../covid-19.js'
+import { getprevDays } from '../convas/chart_data_api.js'
 
 
 var covid_19_url = 'https://covid19.mathdro.id/api'
@@ -118,12 +119,12 @@ export var showData = (country) => {
         console.log("country ====:: ", country)
         covid_data(country)
         .then(data => {
-            console.log(getCountyHistory(data, country))
+            //console.log(getCountyHistory(data, country))
             //drawing Cart----------------
             
            
 
-            var countryData = getCountyHistory(data, country)
+            //var countryData = getCountyHistory(data, country)
             //drawChart(ctx_new, "", "", countryData)
             //-----------------------
 
@@ -200,6 +201,173 @@ function getCountyHistory(data, country) {
 
 
 
+
+async function getCountryArray(country) {
+    var prevDays = getprevDays()
+    console.log(prevDays)
+    
+    var day1 = new Date(prevDays[0])
+    var day15 = new Date(prevDays[1])
+    var day30 = new Date(prevDays[2])
+    var day45 = new Date(prevDays[3])
+    
+    var day1Str = day1.getMonth()+"-"+day1.getDate()+"-"+day1.getFullYear()
+    var day15Str = day15.getMonth()+"-"+day15.getDate()+"-"+day15.getFullYear()
+    var day30Str = day30.getMonth()+"-"+day30.getDate()+"-"+day30.getFullYear()
+    var day45Str = day45.getMonth()+"-"+day45.getDate()+"-"+day45.getFullYear()
+    
+    console.log(day1Str, day15Str, day30Str, day45Str)
+    
+    var urls = [day1Str, day15Str, day30Str, day45Str]
+    //-------------------------------------
+    
+    
+    var promises = Promise.all(urls.map(url => {
+        return covid_data("", url)
+        .then(data => {
+            return data
+        })
+        .catch(err => {
+            console.error(err)
+        }) 
+    }))
+
+    return promises    
+
+}
+
+
+export function generateApiData(country) {
+    return new Promise((resolve, reject) => {
+        getCountryArray(country)
+        .then(dataArr => {
+            console.log(dataArr)
+
+            var arr = []
+            dataArr.forEach((objArr, index) => {
+                getCountryArrayFromPromise(objArr, country)
+                .then(data => {
+                    console.log(data)
+                    console.warn(index, dataArr.length)
+                    arr.push(data)
+                    if(index === (dataArr.length-1)) {
+                        resolve(arr)
+                    }
+                })
+                
+            //console.log(objArr)
+            })
+
+
+        })
+    })
+    
+}
+
+
+
+/*
+generateApiData("Canada")
+.then(data => {
+    console.log(data)
+})
+*/
+
+
+/*
+
+
+
+
+getCountryArray("US")
+.then(dataArr => {
+    console.log(dataArr)
+
+    dataArr.forEach((objArr, index) => {
+        
+        getCountryArrayFromPromise(objArr, "US")
+        .then(data => {
+            console.log(data)
+        })
+        
+       //console.log(objArr)
+    })
+
+
+})
+
+*/
+
+
+
+
+
+function getCountryArrayFromPromise(objArr, country) {
+    
+    return new Promise((resolve, reject) => {
+        var arr = []
+        var countryArray = []
+        ///dataArr.forEach((objArr, index) => {
+            console.log(objArr.length)
+            objArr.forEach((obj, index) => {
+                if (obj.countryRegion === country) arr.push(obj)
+                if(index === (objArr.length-1)) {
+                    //var lastUpdate =  obj.lastUpdate
+                    console.log("last index")
+                    getAverage(arr)
+                    .then(avg => {
+                        var date = new Date(obj.lastUpdate)
+                        var UTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) 
+                        //countryArray.push({lastUpdate:obj.lastUpdate, average:avg.averge})
+                        resolve({lastUpdate:UTC, average:avg.averge})
+                    })
+                }  
+            })
+            //console.warn(index, dataArr.length)
+            //if(index === (dataArr.length-1)) resolve(arr)
+        //})
+        
+        //reject("ERRORR::::::::")
+
+    })
+}
+
+
+function getAverage(data) {
+    return new Promise((resolve, reject) => {
+        console.log(data.length)
+        var confirmedSum = 0
+        
+        for(var i=1; i<=100; i++) {
+
+            var randomIndex = Math.floor(Math.random()*data.length)
+            confirmedSum += parseInt((data[randomIndex].confirmed))
+            console.log(randomIndex, (data[randomIndex].confirmed), confirmedSum)
+
+            if(i === 100) {
+                var avg = confirmedSum / 100
+                resolve({averge:avg})
+            }
+        }
+
+        reject("ERRORR::::::::")
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 function getDailyArray(country) {
     var today = new Date()
     var dd = today.getDate()
@@ -254,6 +422,36 @@ function getDaily(country, date) {
 
     return promise
 }
+
+*/
+
+
+
+
+/*
+
+dataArr.forEach(objArr => {
+            objArr.forEach(obj => {
+                //return obj.find(country => obj.countryRegion === country)
+                //console.log(obj)
+                if (obj.countryRegion === country) return obj 
+            })
+        })
+*/
+
+
+
+//console.log(day1.getDate(), day1.getMonth(), day1.getFullYear())
+
+
+
+
+
+
+
+
+
+
 
 
 /*

@@ -1,6 +1,7 @@
 
 import {covid_19_data, sampleData, genData} from './chart_data_api.js'
 import {Chart} from './chart_graph.js'
+import { generateApiData } from '../fetch_api/covid-19_fetch_api.js'
 
 
 
@@ -29,11 +30,18 @@ try {
 
     var myChart
 
+    generateApiData("Canada")
+    .then(data => {
+        console.log(data)
+        myChart = new Chart(ctx_new, "", "", data, true)
+    })
 
+
+    /*
     genData.then(data => {
         console.log(data)
-        myChart = new Chart(ctx_new, "", "", data)
-    })
+        myChart = new Chart(ctx_new, "", "", data, true)
+    })*/
 
     
 

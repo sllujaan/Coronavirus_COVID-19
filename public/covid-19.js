@@ -1,6 +1,6 @@
 
 
-import {covid_data, showData} from './fetch_api/covid-19_fetch_api.js'
+import {covid_data, showData, generateApiData} from './fetch_api/covid-19_fetch_api.js'
 import { covid_19_data } from "./convas/chart_data_api.js";
 import { Chart } from "./convas/chart_graph.js";
 
@@ -15,6 +15,7 @@ export var recovered = document.getElementsByClassName("recovered")[0].getElemen
 export var deaths = document.getElementsByClassName("deaths")[0].getElementsByClassName("value")[0]
 export var chart_new = document.getElementById("chart-new")
 export var ctx_new = chart_new.getContext('2d')
+var chartError = document.getElementById("chartError")
 
 
 var country = document.getElementById("countries-covid-19")
@@ -23,11 +24,13 @@ console.log(country.value)
 country.addEventListener('change', (e) => {
     console.log(e.target.value)
     showData(e.target.value)
+    showChart(ctx_new, e.target.value)
     
 })
 
 
 showData()
+showChart(ctx_new)
 
 
 
@@ -68,6 +71,76 @@ function makeSelectOption(arr) {
 
 
 
+
+
+
+
+
+
+function showChart(ctx, country) {
+    chartError.style.setProperty("display", "none")
+    try {
+
+        var myChart
+    
+        
+        generateApiData("US")
+        .then(data => {
+            console.log(data)
+            myChart = new Chart(ctx, "", "", data, true)
+        })
+    
+    
+        var windowInnerWidth = window.innerWidth
+        window.addEventListener('resize', e => {
+            var current_innerWidth = e.target.innerWidth
+            var diff = current_innerWidth - windowInnerWidth
+            if(diff > 10 || diff < -10) {
+                console.log("updated Chart...")
+                myChart = myChart.update()
+                
+                windowInnerWidth = e.target.innerWidth
+            }
+        })
+    
+    }
+    catch (err) {
+        console.error(err)
+        chartError.style.setProperty("display", "block")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+{a:1, b:2},
+        {a:2, b:4},
+        {a:3, b:6},
+        {a:4, b:8},
+        {a:4, b:8},
+        {a:4, b:8},
+        {a:1, b:8}
+
+
+
+
+
+
+
+
 export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
     try {
     
@@ -99,7 +172,7 @@ export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
 }
 
 
-
+*/
 
 
 

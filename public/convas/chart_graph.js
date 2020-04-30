@@ -1,6 +1,6 @@
 
 import { validateData, property1Name, property2Name} from './validation/data_validation.js'
-import { getCalculatedDataSet_x_y, calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified,  } from "./calculations/data-calculation.js";
+import { getCalculatedDataSet_x_y, calculatedData_X, calculatedData_Y, data_x_verified, data_y_verified, getPrevDate } from "./calculations/data-calculation.js";
 
 export class Chart  {   
     ctx
@@ -44,14 +44,20 @@ export class Chart  {
 
     windowInnerWidth
 
+    isDateData_x
+
 
 
     
-    constructor(ctx, label_x, label_y, dataSet_x_y) {
+    constructor(ctx, label_x, label_y, dataSet_x_y, isDateData_x) {
+        console.log(dataSet_x_y)
+        console.log("length = ", dataSet_x_y.length)
+        console.log(dataSet_x_y[dataSet_x_y.length-1])
 
         validateData(ctx, label_x, label_y, dataSet_x_y)
         calculatedData_X()
         calculatedData_Y()
+        if(isDateData_x) this.isDateData_x = true
 
         var x_name = Object.keys(dataSet_x_y[0])[0]
         var y_name = Object.keys(dataSet_x_y[0])[1]
@@ -67,6 +73,7 @@ export class Chart  {
         this.data_y = data_y_verified
         this.canvas = ctx.canvas
 
+        console.log(dataSet_x_y)
         this.dataSet_x_y = getCalculatedDataSet_x_y(dataSet_x_y)
         console.log(this.dataSet_x_y)
         
@@ -76,6 +83,8 @@ export class Chart  {
         this.drawDataY()
         this.drawDataX()
         this.drawLine()
+
+        
 
         //this.ctx.stroke()
     }
@@ -131,17 +140,17 @@ export class Chart  {
         this.ctx.textBaseline="middle"
 
         if(this.y_roof_1_height) {
-            this.ctx.fillText(calculatedarr[0], (this.x_corrdinate_0 - 4), this.y_roof_1_height)
+            this.ctx.fillText(Math.floor(calculatedarr[0]), (this.x_corrdinate_0 - 4), this.y_roof_1_height)
             this.y_roof_1_val = calculatedarr[0]
         }
 
         if(this.y_roof_2_height) {
-            this.ctx.fillText(calculatedarr[1], (this.x_corrdinate_0 - 4), this.y_roof_2_height)
+            this.ctx.fillText(Math.floor(calculatedarr[1]), (this.x_corrdinate_0 - 4), this.y_roof_2_height)
             this.y_roof_2_val = calculatedarr[1]
         }
 
         if(this.y_roof_3_height) {
-            this.ctx.fillText(calculatedarr[2], (this.x_corrdinate_0 - 4), this.y_roof_3_height)
+            this.ctx.fillText(Math.floor(calculatedarr[2]), (this.x_corrdinate_0 - 4), this.y_roof_3_height)
             this.y_roof_3_val = calculatedarr[2]
         }
         
@@ -192,23 +201,37 @@ export class Chart  {
         this.ctx.textAlign="center"
         this.ctx.textBaseline="middle"
 
+        var calculatedarrDate = [...calculatedarr]
+        console.log(this.isDateData_x)
+        if(this.isDateData_x) {
+            calculatedarr.forEach((date, index) => {
+                var d = new Date(date)
+                var dateArr = d.toDateString().split(" ")
+                var dateDayMonth = dateArr[1]+"-"+dateArr[2]
+                console.log(dateDayMonth)
+                calculatedarrDate[index] = dateDayMonth
+
+            })
+        }
+        console.log(calculatedarrDate)
+
         //For Wall 1--------------------------------------
-        this.ctx.fillText(calculatedarr[0], (this.x_wall_1_width), this.y_corrdinate_0 + 10)
+        this.ctx.fillText(calculatedarrDate[0], (this.x_wall_1_width), this.y_corrdinate_0 + 10)
         this.x_wall_1_val = calculatedarr[0]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[1], (this.x_wall_2_width), this.y_corrdinate_0 + 10)
+        this.ctx.fillText(calculatedarrDate[1], (this.x_wall_2_width), this.y_corrdinate_0 + 10)
         this.x_wall_2_val = calculatedarr[1]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[2], (this.x_wall_3_width), this.y_corrdinate_0 + 10)
+        this.ctx.fillText(calculatedarrDate[2], (this.x_wall_3_width), this.y_corrdinate_0 + 10)
         this.x_wall_3_val = calculatedarr[2]
         //-------------------------------
 
         //For Wall 2--------------------------------------
-        this.ctx.fillText(calculatedarr[3], (this.x_wall_4_width), this.y_corrdinate_0 + 10)
+        this.ctx.fillText(calculatedarrDate[3], (this.x_wall_4_width), this.y_corrdinate_0 + 10)
         this.x_wall_4_val = calculatedarr[3]
         //-------------------------------
 
@@ -257,6 +280,8 @@ export class Chart  {
         //console.warn(this.current_roof_height, this.current_roof_val)
         this.x_drawLineCoordinates_prev = this.x_corrdinate_0
         this.y_drawLineCoordinates_prev = this.y_corrdinate_0
+
+        console.log(this.dataSet_x_y)
 
         this.dataSet_x_y.forEach((obj, index) => {
             //compute line--------------------------------------
@@ -420,7 +445,7 @@ export class Chart  {
     //updating function----------------------------------------------
     update() {
         console.log(this.dataSet_x_y)
-        return new Chart(this.ctx, "", "", this.dataSet_x_y)
+        return new Chart(this.ctx, "", "", this.dataSet_x_y, this.isDateData_x)
     }
     //---------------------------------------------------
 
