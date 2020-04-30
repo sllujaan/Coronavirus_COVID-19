@@ -119,12 +119,12 @@ export var showData = (country) => {
         console.log("country ====:: ", country)
         covid_data(country)
         .then(data => {
-            console.log(getCountyHistory(data, country))
+            //console.log(getCountyHistory(data, country))
             //drawing Cart----------------
             
            
 
-            var countryData = getCountyHistory(data, country)
+            //var countryData = getCountyHistory(data, country)
             //drawChart(ctx_new, "", "", countryData)
             //-----------------------
 
@@ -202,7 +202,7 @@ function getCountyHistory(data, country) {
 
 
 
-function getCountryArray(country) {
+async function getCountryArray(country) {
     var prevDays = getprevDays()
     console.log(prevDays)
     
@@ -237,32 +237,89 @@ function getCountryArray(country) {
 }
 
 
+export function generateApiData(country) {
+    return new Promise((resolve, reject) => {
+        getCountryArray(country)
+        .then(dataArr => {
+            console.log(dataArr)
+
+            var arr = []
+            dataArr.forEach((objArr, index) => {
+                getCountryArrayFromPromise(objArr, country)
+                .then(data => {
+                    console.log(data)
+                    console.warn(index, dataArr.length)
+                    arr.push(data)
+                    if(index === (dataArr.length-1)) {
+                        resolve(arr)
+                    }
+                })
+                
+            //console.log(objArr)
+            })
+
+
+        })
+    })
+    
+}
+
+
+generateApiData("US")
+.then(data => {
+    console.log(data)
+})
+
+/*
 getCountryArray("US")
 .then(dataArr => {
     console.log(dataArr)
-    getCountryArrayFromPromise(dataArr, "US")
-    .then(data => {
-        console.log(data)
-        getAverage(data)
-        .then(avg => {
-            console.log(avg)
+
+    dataArr.forEach((objArr, index) => {
+        
+        getCountryArrayFromPromise(objArr, "US")
+        .then(data => {
+            console.log(data)
         })
+        
+       //console.log(objArr)
     })
+
+
 })
 
-function getCountryArrayFromPromise(dataArr, country) {
+*/
+
+
+
+
+
+function getCountryArrayFromPromise(objArr, country) {
     
     return new Promise((resolve, reject) => {
         var arr = []
-        dataArr.forEach((objArr, index) => {
-            objArr.forEach(obj => {
+        var countryArray = []
+        ///dataArr.forEach((objArr, index) => {
+            console.log(objArr.length)
+            objArr.forEach((obj, index) => {
                 if (obj.countryRegion === country) arr.push(obj)
+                if(index === (objArr.length-1)) {
+                    //var lastUpdate =  obj.lastUpdate
+                    console.log("last index")
+                    getAverage(arr)
+                    .then(avg => {
+                        var date = new Date(obj.lastUpdate)
+                        var UTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) 
+                        //countryArray.push({lastUpdate:obj.lastUpdate, average:avg.averge})
+                        resolve({lastUpdate:UTC, average:avg.averge})
+                    })
+                }  
             })
-            console.warn(index, dataArr.length)
-            if(index === (dataArr.length-1)) resolve(arr)
-        })
+            //console.warn(index, dataArr.length)
+            //if(index === (dataArr.length-1)) resolve(arr)
+        //})
         
-        reject("ERRORR::::::::")
+        //reject("ERRORR::::::::")
 
     })
 }
