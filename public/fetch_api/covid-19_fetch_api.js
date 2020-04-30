@@ -1,6 +1,6 @@
 
 
-import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new, drawChart} from '../covid-19.js'
+import {showNetworkError, confirmed, recovered, deaths, removeNetworkError, chart_new, ctx_new } from '../covid-19.js'
 import { getprevDays } from '../convas/chart_data_api.js'
 
 
@@ -265,12 +265,20 @@ export function generateApiData(country) {
 }
 
 
-generateApiData("US")
+
+/*
+generateApiData("Canada")
 .then(data => {
     console.log(data)
 })
+*/
+
 
 /*
+
+
+
+
 getCountryArray("US")
 .then(dataArr => {
     console.log(dataArr)

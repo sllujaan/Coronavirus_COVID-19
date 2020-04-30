@@ -1,6 +1,6 @@
 
 
-import {covid_data, showData} from './fetch_api/covid-19_fetch_api.js'
+import {covid_data, showData, generateApiData} from './fetch_api/covid-19_fetch_api.js'
 import { covid_19_data } from "./convas/chart_data_api.js";
 import { Chart } from "./convas/chart_graph.js";
 
@@ -68,6 +68,54 @@ function makeSelectOption(arr) {
 
 
 
+
+
+var chart_new = document.getElementById("chart-new")
+var ctx_new = chart_new.getContext('2d')
+
+
+
+
+
+
+try {
+
+    var myChart
+
+    /*
+    generateApiData("US")
+    .then(data => {
+        console.log(data)
+        myChart = new Chart(ctx_new, "", "", data, true)
+    })*/
+
+    myChart = new Chart(ctx_new, "", "", covid_19_data, true)
+
+    var windowInnerWidth = window.innerWidth
+    window.addEventListener('resize', e => {
+        var current_innerWidth = e.target.innerWidth
+        var diff = current_innerWidth - windowInnerWidth
+        if(diff > 10 || diff < -10) {
+            console.log("updated Chart...")
+            myChart = myChart.update()
+            
+            windowInnerWidth = e.target.innerWidth
+        }
+    })
+
+}
+catch (err) {
+    console.error(err)
+}
+
+
+
+
+
+
+
+
+/*
 export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
     try {
     
@@ -99,7 +147,7 @@ export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
 }
 
 
-
+*/
 
 
 

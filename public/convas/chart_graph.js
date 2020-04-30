@@ -135,17 +135,17 @@ export class Chart  {
         this.ctx.textBaseline="middle"
 
         if(this.y_roof_1_height) {
-            this.ctx.fillText(calculatedarr[0], (this.x_corrdinate_0 - 4), this.y_roof_1_height)
+            this.ctx.fillText(Math.floor(calculatedarr[0]), (this.x_corrdinate_0 - 4), this.y_roof_1_height)
             this.y_roof_1_val = calculatedarr[0]
         }
 
         if(this.y_roof_2_height) {
-            this.ctx.fillText(calculatedarr[1], (this.x_corrdinate_0 - 4), this.y_roof_2_height)
+            this.ctx.fillText(Math.floor(calculatedarr[1]), (this.x_corrdinate_0 - 4), this.y_roof_2_height)
             this.y_roof_2_val = calculatedarr[1]
         }
 
         if(this.y_roof_3_height) {
-            this.ctx.fillText(calculatedarr[2], (this.x_corrdinate_0 - 4), this.y_roof_3_height)
+            this.ctx.fillText(Math.floor(calculatedarr[2]), (this.x_corrdinate_0 - 4), this.y_roof_3_height)
             this.y_roof_3_val = calculatedarr[2]
         }
         
