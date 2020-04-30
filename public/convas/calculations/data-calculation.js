@@ -51,18 +51,28 @@ export function calculatedData_Y () {
 }
 
 export function getCalculatedDataSet_x_y (dataSet_x_y) {
-    dataSet_x_y.sort((a, b) => a.day - b.day)
+
+    console.log(dataSet_x_y)
+
+    var firstName = Object.keys(dataSet_x_y[0])[0]
+    var secondName = Object.keys(dataSet_x_y[0])[1]
+
+    console.warn(firstName, secondName)
+
+    dataSet_x_y.sort((a, b) => a.firstName - b.firstName)
 
     var prevValue = 0
     dataSet_x_y.forEach((obj, index) => {
-        if(!(obj.day > prevValue)) {
+        if(!(obj.firstName > prevValue)) {
             dataSet_x_y.splice(index, 1)
         }
         else{
-            prevValue = obj.day
+            prevValue = obj.firstName
         }
     })
 
+    console.log(dataSet_x_y)
+    console.error("chekout data here")
     var maxValuesToDraw = 10
     var index_diff = Math.floor(dataSet_x_y.length / maxValuesToDraw)  //dividing array into 10 values for performance improvemetns
     console.log(index_diff)

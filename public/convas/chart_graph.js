@@ -69,6 +69,7 @@ export class Chart  {
         this.data_y = data_y_verified
         this.canvas = ctx.canvas
 
+        console.log(dataSet_x_y)
         this.dataSet_x_y = getCalculatedDataSet_x_y(dataSet_x_y)
         console.log(this.dataSet_x_y)
         
@@ -261,6 +262,8 @@ export class Chart  {
         //console.warn(this.current_roof_height, this.current_roof_val)
         this.x_drawLineCoordinates_prev = this.x_corrdinate_0
         this.y_drawLineCoordinates_prev = this.y_corrdinate_0
+
+        console.log(this.dataSet_x_y)
 
         this.dataSet_x_y.forEach((obj, index) => {
             //compute line--------------------------------------
