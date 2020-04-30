@@ -15,6 +15,7 @@ export var recovered = document.getElementsByClassName("recovered")[0].getElemen
 export var deaths = document.getElementsByClassName("deaths")[0].getElementsByClassName("value")[0]
 export var chart_new = document.getElementById("chart-new")
 export var ctx_new = chart_new.getContext('2d')
+var chartError = document.getElementById("chartError")
 
 
 var country = document.getElementById("countries-covid-19")
@@ -23,11 +24,13 @@ console.log(country.value)
 country.addEventListener('change', (e) => {
     console.log(e.target.value)
     showData(e.target.value)
+    showChart(ctx_new, e.target.value)
     
 })
 
 
 showData()
+showChart(ctx_new)
 
 
 
@@ -70,55 +73,46 @@ function makeSelectOption(arr) {
 
 
 
-var chart_new = document.getElementById("chart-new")
-var ctx_new = chart_new.getContext('2d')
 
 
 
 
+function showChart(ctx, country) {
+    chartError.style.setProperty("display", "none")
+    try {
 
-
-try {
-
-    var myChart
-
+        var myChart
     
-    generateApiData("US")
-    .then(data => {
-        console.log(data)
-        myChart = new Chart(ctx_new, "", "", data, true)
-    })
-
+        
+        generateApiData("US")
+        .then(data => {
+            console.log(data)
+            myChart = new Chart(ctx, "", "", data, true)
+        })
     
-    var covid_19_data_1 = [
-        {"day":1, infected_people: 100},
-        {"day":2, infected_people: 500},
-        {"day":3, infected_people: 1000},
-        {"day":4, infected_people: 2000},
-        {"day":5, infected_people: 4000},
-        {"day":6, infected_people: 8000},
-        {"day":7, infected_people: 10000}
-    ]
-
-    console.log(covid_19_data_1)
-    //myChart = new Chart(ctx_new, "", "", covid_19_data_1, true)
-
-    var windowInnerWidth = window.innerWidth
-    window.addEventListener('resize', e => {
-        var current_innerWidth = e.target.innerWidth
-        var diff = current_innerWidth - windowInnerWidth
-        if(diff > 10 || diff < -10) {
-            console.log("updated Chart...")
-            myChart = myChart.update()
-            
-            windowInnerWidth = e.target.innerWidth
-        }
-    })
-
+    
+        var windowInnerWidth = window.innerWidth
+        window.addEventListener('resize', e => {
+            var current_innerWidth = e.target.innerWidth
+            var diff = current_innerWidth - windowInnerWidth
+            if(diff > 10 || diff < -10) {
+                console.log("updated Chart...")
+                myChart = myChart.update()
+                
+                windowInnerWidth = e.target.innerWidth
+            }
+        })
+    
+    }
+    catch (err) {
+        console.error(err)
+        chartError.style.setProperty("display", "block")
+    }
 }
-catch (err) {
-    console.error(err)
-}
+
+
+
+
 
 
 

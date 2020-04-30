@@ -21,7 +21,7 @@ h1, h2{
 }
 
 h2 {
-    background-color: red;
+    background-color: #FF0266;
     color: black;
     width: 50%;
 }
@@ -163,6 +163,13 @@ select {
 .cases {
     justify-content: flex-start;
     align-items: flex-start;
+}
+
+
+
+.error{
+    color: #FF0266;
+    display: none;
 }
 
 /*
