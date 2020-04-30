@@ -54,36 +54,60 @@ export function getCalculatedDataSet_x_y (dataSet_x_y) {
 
     console.log(dataSet_x_y)
 
-    var firstName = Object.keys(dataSet_x_y[0])[0]
-    var secondName = Object.keys(dataSet_x_y[0])[1]
+    
 
-    console.warn(firstName, secondName)
+    var name_x = Object.keys(dataSet_x_y[0])[0]
+    var name_y = Object.keys(dataSet_x_y[0])[1]
 
-    dataSet_x_y.sort((a, b) => a.firstName - b.firstName)
+    console.warn(name_x, name_y)
+
+    dataSet_x_y.sort((a, b) => a[name_x]- b[name_x])
+
+    console.log(dataSet_x_y)
 
     var prevValue = 0
+    
     dataSet_x_y.forEach((obj, index) => {
-        if(!(obj.firstName > prevValue)) {
+        console.log("foreach called.....................")
+        console.log(obj[name_x], prevValue)
+        if(!(obj[name_x] > prevValue)) {
+            console.log("data spliced.........>>>>>>>>>>>>>><<<<<<<")
             dataSet_x_y.splice(index, 1)
         }
         else{
-            prevValue = obj.firstName
+            console.log("data not spliced...........)))))))))((((((((((")
+            prevValue = obj[name_x]
         }
+    })
+
+    
+
+    //return dataSet_x_y
+
+    dataSet_x_y.forEach(obj => {
+        console.log(obj)
     })
 
     console.log(dataSet_x_y)
     console.error("chekout data here")
-    var maxValuesToDraw = 10
-    var index_diff = Math.floor(dataSet_x_y.length / maxValuesToDraw)  //dividing array into 10 values for performance improvemetns
-    console.log(index_diff)
-    
 
-    var computedArray = [dataSet_x_y[0]]
-    for(var i=0; i<maxValuesToDraw; i++) {
-        computedArray.push(dataSet_x_y[(index_diff * (i+1))])
+    var computedArray = dataSet_x_y
+
+    if(dataSet_x_y.length > 10) {
+
+        var maxValuesToDraw = 10
+        var index_diff = Math.floor(dataSet_x_y.length / maxValuesToDraw)  //dividing array into 10 values for performance improvemetns
+        console.log(index_diff)
+        
+
+        computedArray = [dataSet_x_y[0]]
+        for(var i=0; i<maxValuesToDraw; i++) {
+            computedArray.push(dataSet_x_y[(index_diff * (i+1))])
+        }
+        computedArray.push(dataSet_x_y[dataSet_x_y.length-1])
+        console.log(computedArray)
+
     }
-    computedArray.push(dataSet_x_y[dataSet_x_y.length-1])
-    console.log(computedArray)
 
 
     return computedArray

@@ -51,6 +51,8 @@ export class Chart  {
     
     constructor(ctx, label_x, label_y, dataSet_x_y, isDateData_x) {
         console.log(dataSet_x_y)
+        console.log("length = ", dataSet_x_y.length)
+        console.log(dataSet_x_y[dataSet_x_y.length-1])
 
         validateData(ctx, label_x, label_y, dataSet_x_y)
         calculatedData_X()

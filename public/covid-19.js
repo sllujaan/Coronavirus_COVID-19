@@ -82,13 +82,14 @@ try {
 
     var myChart
 
-    /*
+    
     generateApiData("US")
     .then(data => {
         console.log(data)
         myChart = new Chart(ctx_new, "", "", data, true)
-    })*/
+    })
 
+    
     var covid_19_data_1 = [
         {"day":1, infected_people: 100},
         {"day":2, infected_people: 500},
@@ -100,18 +101,7 @@ try {
     ]
 
     console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    console.log(covid_19_data_1)
-    
-    console.log(covid_19_data_1)
-    myChart = new Chart(ctx_new, "", "", covid_19_data_1, true)
+    //myChart = new Chart(ctx_new, "", "", covid_19_data_1, true)
 
     var windowInnerWidth = window.innerWidth
     window.addEventListener('resize', e => {
@@ -138,6 +128,25 @@ catch (err) {
 
 
 /*
+
+
+
+
+{a:1, b:2},
+        {a:2, b:4},
+        {a:3, b:6},
+        {a:4, b:8},
+        {a:4, b:8},
+        {a:4, b:8},
+        {a:1, b:8}
+
+
+
+
+
+
+
+
 export function drawChart(ctx_new, label_x, label_y, covid_19_data) {
     try {
     
