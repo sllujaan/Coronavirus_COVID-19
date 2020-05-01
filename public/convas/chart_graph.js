@@ -311,11 +311,11 @@ export class Chart  {
     //drwing lines from previous coordinates to current coordinates-----
     drawLineToCoordinates(computed_width, computed_height) {
         this.ctx.moveTo(this.x_drawLineCoordinates_prev, this.y_drawLineCoordinates_prev)
-        this.ctx.lineWidth = 3
+        this.ctx.lineWidth = 1
         this.ctx.strokeStyle = "#4287f5"
         //this.ctx.lineCap = 'round'
         this.ctx.lineJoin = this.ctx.lineCap = 'round';
-        this.ctx.shadowBlur = 1;
+        this.ctx.shadowBlur = 2;
         this.ctx.shadowColor = 'rgba(66, 135, 245, 1)';
         this.ctx.lineTo(computed_width, computed_height)
         this.ctx.stroke()
