@@ -311,20 +311,23 @@ export class Chart  {
     //drwing lines from previous coordinates to current coordinates-----
     drawLineToCoordinates(computed_width, computed_height) {
         this.ctx.moveTo(this.x_drawLineCoordinates_prev, this.y_drawLineCoordinates_prev)
-        this.ctx.lineWidth = 2
+        this.ctx.lineWidth = 3
         this.ctx.strokeStyle = "#4287f5"
-        this.ctx.lineCap = 'round'
+        //this.ctx.lineCap = 'round'
+        this.ctx.lineJoin = this.ctx.lineCap = 'round';
+        this.ctx.shadowBlur = 1;
+        this.ctx.shadowColor = 'rgba(66, 135, 245, 1)';
         this.ctx.lineTo(computed_width, computed_height)
         this.ctx.stroke()
         
         if(this.dataSet_x_y.length <= 15) { 
         
-            var radius = 5
+            var radius = 3
             this.ctx.save()
             this.ctx.moveTo(computed_width + radius, computed_height)
             this.ctx.arc(computed_width, computed_height, radius, 0, 2*Math.PI)
             this.ctx.strokeStyle = "#4287f5"
-            this.ctx.fillStyle = "skyblue"
+            this.ctx.fillStyle = "#4287f5"
             this.ctx.fill()
             this.ctx.stroke()
             this.ctx.restore()
