@@ -49,6 +49,7 @@ export var showNetworkError = () => {
     network_error.setAttribute("id", "n-err")
     network_error.innerHTML = `Check your connection.`
     body.insertBefore(network_error, body.children[1])
+    chartError.style.setProperty("display", "block")
 }
 
 
