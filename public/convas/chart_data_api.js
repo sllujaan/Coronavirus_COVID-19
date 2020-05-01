@@ -91,10 +91,17 @@ export function getprevDays() {
     var mm = today.getMonth() + 1
     var yyyy = today.getFullYear()
 
-    var prevDay1 =getPrevDate(Date.now(), 1)
+    var prevDay1 =getPrevDate(Date.now(), 2)
     var prevDay15 =getPrevDate(Date.now(), 15)
     var prevDay30 =getPrevDate(Date.now(), 30)
     var prevDay45 =getPrevDate(Date.now(), 45)
+
+    console.table([
+        prevDay1,
+        prevDay15,
+        prevDay30,
+        prevDay45
+    ])
 
     var datePrevDay1 = new Date(prevDay1)
     var datePrevDay15 = new Date(prevDay15)
